@@ -1,16 +1,22 @@
 import react from "react";
+import { Header } from "./Header";
+import { Footer } from "./footer";
+import { Outlet } from "react-router-dom";
+import Hero from "./Hero";
 
 export const DefaultLayout = () => {
   return (
     <div>
       {/* header */}
-      <h1> header</h1>
+
+      <Header />
+
       <main className="main">
         <Outlet />
       </main>
-      main component
+
       {/* footer */}
-      <footer />
+      <Footer />
     </div>
   );
 };

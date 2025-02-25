@@ -1,10 +1,11 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import { Link } from "react-router-dom";
 
 export const Header = () => {
   return (
-    <Navbar expand="lg" className="bg-dark text-white" varient="dark">
+    <Navbar expand="md" className="bg-dark  text-white" variant="dark">
       <Container>
         <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -14,10 +15,10 @@ export const Header = () => {
               Home
             </Link>
             <Link className="nav-link" to="/signup">
-              sign Up
+              Sign Up
             </Link>
             <Link className="nav-link" to="/signin">
-              sign In
+              Sign In
             </Link>
           </Nav>
         </Navbar.Collapse>
@@ -25,5 +26,3 @@ export const Header = () => {
     </Navbar>
   );
 };
-
-export default BasicExample;
