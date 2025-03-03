@@ -1,47 +1,72 @@
 import Hero from "../../components/layouts/Hero";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { DefaultLayout } from "../../components/layouts/DefaultLayout";
 import { CustomCarousel } from "../../components/customCarosel/CustomCarosel";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import { CustomCard } from "../../components/customCard/CustomCard";
 // import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { apiProcessor } from "../../helpers/axiosHelpers";
+import { setBooks } from "../../slice/bookSlice";
 
 const HomePage = () => {
   // const { books } = useSelector((state) => state.bookInfo);
 
-  const [searchedBooks, setSearchBooks] = useState([
-    {
-      status: "active",
-      title: "Mastering CSS",
-      author: "CSS GURU",
-      isbn: "12345668",
-      publishedYear: 1995,
-      thumbnail: "https://randomuser.me/api/portraits/women/44.jpg",
-      description: "Advanced techniques in CSS.",
-      isAvailable: true,
-      expectedAvailable: null,
-      createdAt: "2024-11-27T00:41:30.357Z",
-      updatedAt: "2024-11-27T00:41:30.357Z",
-    },
-    {
-      status: "active",
-      title: "Mastering CSS",
-      author: "CSS GURU",
-      isbn: "12345668",
-      publishedYear: 1995,
-      thumbnail: "https://randomuser.me/api/portraits/women/44.jpg",
-      description: "Advanced techniques in CSS.",
-      isAvailable: true,
-      expectedAvailable: null,
-      createdAt: "2024-11-27T00:41:30.357Z",
-      updatedAt: "2024-11-27T00:41:30.357Z",
-    },
-  ]);
+  const bookStore = useSelector((state) => state.bookInfo);
+
+  const [searchedBooks, setSearchBooks] = useState([]);
+
+  const dispatch = useDispatch();
+  // {
+  //   status: "active",
+  //   title: "Mastering CSS",
+  //   author: "CSS GURU",
+  //   isbn: "12345668",
+  //   publishedYear: 1995,
+  //   thumbnail: "https://randomuser.me/api/portraits/women/44.jpg",
+  //   description: "Advanced techniques in CSS.",
+  //   isAvailable: true,
+  //   expectedAvailable: null,
+  //   createdAt: "2024-11-27T00:41:30.357Z",
+  //   updatedAt: "2024-11-27T00:41:30.357Z",
+  // },
+  // {
+  //   status: "active",
+  //   title: "Mastering CSS",
+  //   author: "CSS GURU",
+  //   isbn: "12345668",
+  //   publishedYear: 1995,
+  //   thumbnail: "https://randomuser.me/api/portraits/women/44.jpg",
+  //   description: "Advanced techniques in CSS.",
+  //   isAvailable: true,
+  //   expectedAvailable: null,
+  //   createdAt: "2024-11-27T00:41:30.357Z",
+  //   updatedAt: "2024-11-27T00:41:30.357Z",
+  // },
+  // ]);
 
   // useEffect(() => {
   //   setSearchBooks(books);
   // }, [books]);
+
+  //action to fetch books
+  const fetchBooks = async () => {
+    try {
+      const response = await apiProcessor(
+        {
+          method: "get",
+          url: "http://localhost:9002/api/v1/books/pub-books",
+          isPrivate: false,
+          isRefreshToken: false,
+        },
+        []
+      );
+      dispatch(setBooks(response.books));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleOnSearch = (e) => {
     const { value } = e.target;
@@ -52,6 +77,17 @@ const HomePage = () => {
       )
     );
   };
+
+  // use effects
+  // call the fetchbook action
+  useEffect(() => {
+    fetchBooks();
+  }, []);
+
+  // trigger update  of the seracg book when bookStore.books is updated
+  useEffect(() => {
+    setSearchBooks(bookStore.books);
+  }, [bookStore.books]);
 
   return (
     <>

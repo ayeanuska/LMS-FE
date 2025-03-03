@@ -12,7 +12,7 @@ import { UserLayout } from "./components/layouts/UserLayout";
 import PizzaPage from "./Pages/pizzaPage/PizzaPage.jsx";
 
 function App() {
-  return <PizzaPage />;
+  // return <PizzaPage />;
 
   return (
     <>
