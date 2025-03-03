@@ -17,6 +17,11 @@ const HomePage = () => {
 
   const [searchedBooks, setSearchBooks] = useState([]);
 
+  // const objec1 = { key1: "value", key2: "value2" };
+  // const objec2 = { key3: "value", key4: "value2" };
+
+  // const object3 = { ...objec1, ...objec2 };
+
   const dispatch = useDispatch();
   // {
   //   status: "active",
@@ -70,9 +75,8 @@ const HomePage = () => {
 
   const handleOnSearch = (e) => {
     const { value } = e.target;
-
     setSearchBooks(
-      books.filter(({ title }) =>
+      bookStore.books.filter(({ title }) =>
         title.toLowerCase().includes(value.toLowerCase())
       )
     );
@@ -88,7 +92,7 @@ const HomePage = () => {
   useEffect(() => {
     setSearchBooks(bookStore.books);
   }, [bookStore.books]);
-
+  console.log(searchedBooks);
   return (
     <>
       <Hero />

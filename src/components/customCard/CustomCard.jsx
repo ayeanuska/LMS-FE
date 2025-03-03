@@ -8,6 +8,7 @@ export const CustomCard = ({
   author,
   publishedYear,
 }) => {
+  console.log(thumbnail);
   return (
     <Card style={{ width: "18rem" }}>
       <Card.Img variant="top" src={thumbnail} />
