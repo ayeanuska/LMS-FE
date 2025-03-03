@@ -9,8 +9,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Dashboard from "./Pages/dashboard/Dashboard";
 import { UserLayout } from "./components/layouts/UserLayout";
+import PizzaPage from "./Pages/pizzaPage/PizzaPage.jsx";
 
 function App() {
+  return <PizzaPage />;
+
   return (
     <>
       <Routes>
