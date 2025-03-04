@@ -8,7 +8,8 @@ import { CustomCard } from "../../components/customCard/CustomCard";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { apiProcessor } from "../../helpers/axiosHelpers";
-import { setBooks } from "../../slice/bookSlice";
+import { setBooks } from "../../features/books/bookSlice";
+import { getAllBookAction } from "../../features/books/bookAction";
 
 const HomePage = () => {
   // const { books } = useSelector((state) => state.bookInfo);
@@ -58,16 +59,7 @@ const HomePage = () => {
   //action to fetch books
   const fetchBooks = async () => {
     try {
-      const response = await apiProcessor(
-        {
-          method: "get",
-          url: "http://localhost:9002/api/v1/books/pub-books",
-          isPrivate: false,
-          isRefreshToken: false,
-        },
-        []
-      );
-      dispatch(setBooks(response.books));
+      dispatch(getAllBookAction());
     } catch (error) {
       console.log(error);
     }
