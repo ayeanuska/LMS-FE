@@ -13,10 +13,16 @@ import { UserLayout } from "./components/layouts/UserLayout";
 import BookLandingPage from "./Pages/book/BookLandingPage.jsx";
 import HomePage from "./pages/home/HomePage.jsx";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getAllBookAction } from "./features/books/bookAction.js";
 
 function App() {
   // return <PizzaPage />;
-  // const dispatch = useDispatch();
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllBookAction());
+  });
 
   return (
     <>

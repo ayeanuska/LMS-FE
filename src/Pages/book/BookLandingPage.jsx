@@ -18,7 +18,7 @@ const BookLandingPage = () => {
     <div>
       <h1>BookLandingPage</h1>
       <div>
-        <img src={book.thumbnail} alt="" width="200px" />
+        <img src={book?.thumbnail} alt="" width="200px" />
       </div>
       <div>Tittle : {book?.title}</div>
       <div>Author : {book?.author}</div>
