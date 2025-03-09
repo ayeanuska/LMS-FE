@@ -7,8 +7,8 @@ import { CustomCard } from "../../components/customCard/CustomCard";
 // import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { apiProcessor } from "../../helpers/axiosHelpers";
-import { setBooks } from "../../features/books/bookSlice";
+// import { apiProcessor } from "../../helpers/axiosHelpers";
+// import { setBooks } from "../../features/books/bookSlice";
 import { getAllBookAction } from "../../features/books/bookAction";
 
 const HomePage = () => {

@@ -4,7 +4,7 @@ const initialState = {
   user: {},
 };
 
-const userSlice = ccreateSlice({
+export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
@@ -19,3 +19,5 @@ const userSlice = ccreateSlice({
 });
 
 export const { setuser } = userSlice.actions;
+
+export default userSlice.reducer;
