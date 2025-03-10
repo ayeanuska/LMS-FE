@@ -1,23 +1,41 @@
 import React from "react";
 import { Header } from "./Header";
+import { Col, Container, Row } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { Footer } from "./footer";
+import AuthRoute from "../auth/AuthRoute";
+import UserSidebar from "./UserSidebar";
 
-import { Outlet } from "react-router-dom";
-
-export const UserLayout = () => {
+export const UserLayout = ({ pageTitle = "default", children }) => {
+  const { user } = useSelector((state) => state.userInfo);
   return (
-    <div>
-      <Header />
+    <AuthRoute>
+      <div>
+        {/* header  */}
+        <Header />
+        <Container fluid>
+          <Row>
+            <Col md={3} xl={2} className="bg-dark text-light">
+              <div className="p-3">
+                <div>Welcome Back</div>
+                <h3>{user?.fName + " " + user?.lName}</h3>
+              </div>
+              <hr />
+              <UserSidebar />
+            </Col>
+            <Col>
+              <div className="p-2">
+                <h3>{pageTitle}</h3>
+              </div>
+              <hr />
+              <main className="main mb-3">{children}</main>
+            </Col>
+          </Row>
+        </Container>
 
-      <div className="d-flex">
-        <div className="left bg-dark text-white" style={{ width: "200px" }}>
-          sidbar menu
-        </div>
-        <main className="main">
-          <Outlet />
-        </main>
+        {/* footer  */}
+        <Footer />
       </div>
-
-      <Footer />
-    </div>
+    </AuthRoute>
   );
 };

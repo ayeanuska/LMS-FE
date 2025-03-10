@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { apiProcessor } from "../../helpers/axiosHelpers";
+import { UserLayout } from "../../components/layouts/UserLayout";
 
 const Dashboard = () => {
   const [user, setUser] = useState({});
@@ -17,10 +18,14 @@ const Dashboard = () => {
     }
   };
   useEffect(() => {
-    fetchUserData;
+    fetchUserData();
   }, []);
 
-  return <div>{user.fName}</div>;
+  return (
+    <UserLayout>
+      <h1>DASHBOARD</h1>
+    </UserLayout>
+  );
 };
 
 export default Dashboard;

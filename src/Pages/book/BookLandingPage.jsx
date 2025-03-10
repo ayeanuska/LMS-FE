@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useParams } from "react-router-dom";
 
 const BookLandingPage = () => {
-  const location = useLocation();
+  // const location = useLocation();
+  // const dispatch = useDispatch();
   const { _id } = useParams();
 
-  const { books } = useSelector((store) => store.bookInfo);
+  const { books } = useSelector((state) => state.bookInfo);
+  const { user } = useSelector((state) => state.userInfo);
 
   const [book, setBook] = useState({});
 
