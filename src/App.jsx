@@ -32,8 +32,15 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/signin" element={<SignInPage />} />
+
+          {/* book landing or book detail page */}
           <Route path="/book/:_id" element={<BookLandingPage />} />
         </Route>
+
+        {/*  only admin pages */}
+        <Route path="admin/books" element={<BookList />} />
+        <Route path="admin/books/new" element={<AddNewBook />} />
+        <Route path="admin/book/edit/:id" element={<EditBook />} />
 
         {/* private routes */}
         <Route path="/user" element={<UserLayout />}>
