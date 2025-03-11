@@ -27,6 +27,25 @@ export const postNewBookApi = (newBookObj) => {
 //axios call for enpoint
 export const fetchSingleBook = async (_id) => {};
 
-export const updateABook = async ({ _id, ...obj }) => {};
+export const updateABook = async ({ _id, ...bookObject }) => {
+  const apiObj = {
+    method: "put",
+    url: bookEP,
+    isPrivate: true,
+    isRefreshToken: false,
+    data: bookObject,
+  };
 
-export const deleteBook = async (_id) => {};
+  return apiProcessor(apiObj);
+};
+
+export const deleteBook = async (_id) => {
+  //delete api/v1/book/:_id
+
+  const apiObj = {
+    method: "delete",
+    url: bookEP + "/" + _id,
+    isPrivate: true,
+  };
+  return apiProcessor(apiObj);
+};
