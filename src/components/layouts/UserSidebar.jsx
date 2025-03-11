@@ -8,6 +8,7 @@ import { TbStarsFilled } from "react-icons/tb";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+//admin only menu
 const sidelinks = [
   {
     icon: <FaBookBookmark />,
@@ -47,7 +48,7 @@ const sidelinks = [
   },
 ];
 
-const UserSidebar = () => {
+export const UserSidebar = () => {
   const { user, menu } = useSelector((state) => state.userInfo);
   const list =
     user.role === "admin"
@@ -69,5 +70,3 @@ const UserSidebar = () => {
     </Stack>
   );
 };
-
-export default UserSidebar;

@@ -4,7 +4,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Footer } from "./footer";
 import AuthRoute from "../auth/AuthRoute";
-import UserSidebar from "./UserSidebar";
+import { UserSidebar } from "./UserSidebar";
 
 export const UserLayout = ({ pageTitle = "default", children }) => {
   const { user } = useSelector((state) => state.userInfo);

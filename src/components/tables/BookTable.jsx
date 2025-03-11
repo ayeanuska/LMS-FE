@@ -2,22 +2,26 @@ import React, { useEffect } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { getAllBookAction } from "../../features/books/bookAction";
 
+//const isPrivate = true;
 export const BookTable = () => {
   const dispatch = useDispatch();
 
   //GET BOOK LIST FROM BOOK STORE
-  const books = [];
-  //   const{ books} = useSelector((state)=> state.bookInfo)
+  // const books = [];
+  const { books } = useSelector((state) => state.bookInfo);
 
   const handleOnDelete = async (id) => {
     // 1. delete axios call
     //call delete action
-    // dispatch(deleteSingleBookAction(id))
+    if (window.confirm("Are you sure you want to Delete"))
+      dispatch(deleteSingleBookAction(id));
   };
+
   useEffect(() => {
     //fetch all books for admin
-    //dispatch (getAllBookAction(isPrivate));
+    dispatch(getAllBookAction(true));
   }, [dispatch]);
 
   return (
@@ -34,9 +38,9 @@ export const BookTable = () => {
         <thead>
           <tr>
             <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
+            <th>Thumbnail</th>
+            <th>Tittle</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>

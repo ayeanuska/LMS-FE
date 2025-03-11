@@ -23,3 +23,10 @@ export const postNewBookApi = (newBookObj) => {
   };
   return apiProcessor(apiObj);
 };
+
+//axios call for enpoint
+export const fetchSingleBook = async (_id) => {};
+
+export const updateABook = async ({ _id, ...obj }) => {};
+
+export const deleteBook = async (_id) => {};

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const authEP = "http://localhost:9002/api/v1/";
+const authEP = "http://localhost:9002/api/v1/auth";
 
 const getAccessJWT = () => {
   return sessionStorage.getItem("accesJWT");

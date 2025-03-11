@@ -39,7 +39,7 @@ function App() {
         </Route>
 
         {/*  only admin pages */}
-        <Route path="admin/books" element={<BookList />} />
+        <Route path="/admin/books" element={<BookList />} />
         {/* <Route path="admin/books/new" element={<AddNewBook />} />
         <Route path="admin/book/edit/:id" element={<EditBook />} /> */}
 
