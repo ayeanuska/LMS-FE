@@ -16,6 +16,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getAllBookAction } from "./features/books/bookAction.js";
 import BookList from "./Pages/book/bookList.jsx";
+import AddNewBook from "./Pages/book/AddNewBook.jsx";
 
 function App() {
   // return <PizzaPage />;
@@ -40,8 +41,8 @@ function App() {
 
         {/*  only admin pages */}
         <Route path="/admin/books" element={<BookList />} />
-        {/* <Route path="admin/books/new" element={<AddNewBook />} />
-        <Route path="admin/book/edit/:id" element={<EditBook />} /> */}
+        <Route path="admin/books/new" element={<AddNewBook />} />
+        {/* <Route path="admin/book/edit/:id" element={<EditBook />} />  */}
 
         {/* private routes */}
         <Route path="/dashboard" element={<Dashboard />} />
