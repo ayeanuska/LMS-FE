@@ -51,7 +51,7 @@ export const BookTable = () => {
                 <img src={item.thumbnail} alt="" width={"70px"} />
               </td>
               <td>
-                <h2>{item.title.slice(0, 30)} ...</h2>
+                <h2>{item.title?.slice(0, 30)} ...</h2>
                 <div>{item.author}</div>
                 <div
                   className={

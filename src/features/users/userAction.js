@@ -1,20 +1,48 @@
-import { apiProcessor } from "../../helpers/axiosHelpers";
-import { loginApi } from "./userAxios";
+import { renewAccessJWT } from "../../helpers/axiosHelpers";
+import { fetchUserDetailApi, loginApi } from "./userAxios";
 import { setUser } from "./userSlice";
 
-export const loginAction = (form) => async (dispatch) => {
+export const loginAction = (form, navigate) => async (dispatch) => {
   //call the login api
-  const data = await loginApi(form);
+  const data = await loginApi({ ...form });
 
   if (data.status == "success") {
-    //update storage sessio for acess
+    // update user store.
+    dispatch(setUser(data.user));
+    //update storage session for acess
     sessionStorage.setItem("acessJWT", data.accessToken);
 
     //updating the local storage for refresh
     localStorage.setItem("refreshJWT", data.refreshToken);
 
-    // user store update
+    navigate("/dashboard");
+  }
+};
 
-    dispatch(setUser(data.user));
+// action to get user object
+export const getUserObj = () => async (dispatch) => {
+  const { status, user } = await fetchUserDetailApi();
+
+  //update store
+  dispatch(setUser(user));
+};
+
+//auto login action
+export const autologin = () => async (dispatch) => {
+  const accessJWT = sessionStorage.getItem("accessJWT");
+  const refreshJWT = localStorage.getItem("refreshJWT");
+  console.log("Auto login");
+
+  // access when jwt exists
+  if (accessJWT) {
+    dispatch(getUserObj());
+    return;
+  }
+
+  // when accessJWT donot exist but refresh JWT exist
+
+  if (refreshJWT) {
+    const token = await renewAccessJWT();
+    token && dispatch(getUserObj());
   }
 };

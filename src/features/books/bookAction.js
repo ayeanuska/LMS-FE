@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { fetchAllBookApi, postNewBookApi } from "./bookAxios";
-import { setBooks } from "./bookSlice";
+import { addBooks } from "./bookSlice";
 
 export const getAllBookAction =
   (isPrivate = false) =>
@@ -10,7 +10,7 @@ export const getAllBookAction =
 
     //update the book store
     if (status === "success" && books) {
-      dispatch(setBooks(books));
+      dispatch(addBooks(books));
     }
   };
 
@@ -23,6 +23,8 @@ export const postNewBookAction = (obj) => async (dispatch) => {
   });
 
   const { status, message } = await pending;
+
+  console.log(status, message);
   toast[status](message);
 
   if (status === "success") {

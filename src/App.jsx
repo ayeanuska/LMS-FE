@@ -17,6 +17,9 @@ import { useEffect } from "react";
 import { getAllBookAction } from "./features/books/bookAction.js";
 import BookList from "./Pages/book/bookList.jsx";
 import AddNewBook from "./Pages/book/AddNewBook.jsx";
+import EditBook from "./Pages/book/EditBook.jsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   // return <PizzaPage />;
@@ -42,11 +45,14 @@ function App() {
         {/*  only admin pages */}
         <Route path="/admin/books" element={<BookList />} />
         <Route path="admin/books/new" element={<AddNewBook />} />
-        {/* <Route path="admin/book/edit/:id" element={<EditBook />} />  */}
+
+        <Route path="admin/book/edit/:id" element={<EditBook />} />
 
         {/* private routes */}
         <Route path="/dashboard" element={<Dashboard />} />
+        {/* <Route path="my-books" element={<MyBorrow />} /> */}
       </Routes>
+      <ToastContainer />
     </>
   );
 }

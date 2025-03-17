@@ -1,10 +1,10 @@
 export const bookInputes = [
   {
-    label: "Tittle",
+    label: "Title",
     name: "title",
     type: "text",
     required: true,
-    placeholder: "Learn JavaScript",
+    placeholder: "Dandelions",
   },
   {
     label: "Author",
@@ -32,23 +32,24 @@ export const bookInputes = [
     name: "genre",
     type: "text",
     required: true,
+    min: "1000",
     placeholder: "GENRE",
   },
   {
     label: "Published Year",
-    name: "published year",
+    name: "publishedYear",
     type: "number",
     required: true,
     placeholder: "2022",
   },
   {
     label: "Description ",
-    name: " description",
+    name: "description",
     type: "text",
-    as: "text-area",
-    maxlength: "5000",
+    as: "textarea",
+    maxLength: "5000",
     required: true,
-    placeholder: "Book summary",
+    placeholder: "Book summary...",
     rows: "5",
   },
 ];

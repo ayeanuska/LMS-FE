@@ -3,7 +3,7 @@ import axios from "axios";
 const authEP = "http://localhost:9002/api/v1/auth";
 
 const getAccessJWT = () => {
-  return sessionStorage.getItem("accesJWT");
+  return sessionStorage.getItem("acessJWT");
 };
 
 const getRefreshJWT = () => {
@@ -15,12 +15,14 @@ export const apiProcessor = async ({
   url,
   data,
   isPrivate,
-  isRefreshToken,
+  isRefreshToken = false,
 }) => {
   const headers = {
     Authorization: isPrivate
       ? getAccessJWT()
-      : (isRefreshToken = false ? getRefreshJWT() : null),
+      : isRefreshToken
+      ? getRefreshJWT()
+      : null,
   };
   try {
     const response = await axios({
@@ -70,4 +72,16 @@ export const apiProcessor = async ({
       message,
     };
   }
+};
+
+export const renewAccessJWT = async () => {
+  const { accessJWT } = await apiProcessor({
+    method: "get",
+    url: authEP + "/renew-jwt",
+    isPrivate: true,
+    isRefreshJwt: true,
+  });
+
+  sessionStorage.setItem("accessJWT", accessJWT);
+  return accessJWT;
 };

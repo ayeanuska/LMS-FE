@@ -10,9 +10,15 @@ const bookSlice = createSlice({
     setBooks: (state, action) => {
       state.books = action.payload;
     },
+    setSelectedBook: (state, action) => {
+      state.selectedBook = action.payload;
+    },
+    addBooks: (state, action) => {
+      state.books = [...state.books, action.payload];
+    },
   },
 });
 
-export const { setBooks } = bookSlice.actions;
+export const { setBooks, setSelectedBook, addBooks } = bookSlice.actions;
 
 export default bookSlice.reducer;

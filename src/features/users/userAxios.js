@@ -1,11 +1,10 @@
 import { apiProcessor } from "../../helpers/axiosHelpers";
 
-const userEP = import.meta.env.VITE_APP_ROOT_URL + "/users";
-
 const authEP = import.meta.env.VITE_APP_ROOT_URL + "/auth";
 
-export const loginApi = (loginObj) => {
-  return apiProcessor({
+//api to login
+export const loginApi = async (loginObj) => {
+  const res = await apiProcessor({
     method: "post",
     url: authEP + "/login",
     data: loginObj,
@@ -14,11 +13,26 @@ export const loginApi = (loginObj) => {
   });
 };
 
+//api to fetch user detail
 export const fetchUserDetailApi = () => {
-  const apiObj = {};
+  const apiObj = {
+    method: "get",
+    url: authEP,
+    isPrivate: true,
+    isRefreshToken: false,
+  };
+
   return apiProcessor(apiObj);
 };
 
+// api to create new user
 export const createNewUserApi = (newUserApi) => {
-  const apiObj = {};
+  const apiObj = {
+    method: "post",
+    url: authEP + "/register",
+    isPrivate: true,
+    data: newUserObj,
+  };
+
+  return apiProcessor(apiObj);
 };
