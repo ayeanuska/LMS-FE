@@ -15,11 +15,14 @@ import HomePage from "./pages/home/HomePage.jsx";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getAllBookAction } from "./features/books/bookAction.js";
-import BookList from "./Pages/book/bookList.jsx";
+
 import AddNewBook from "./Pages/book/AddNewBook.jsx";
 import EditBook from "./Pages/book/EditBook.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import BookList from "./Pages/book/BookList.jsx";
+import MyBorrow from "./Pages/borrow/MyBorrow.jsx";
+import AllBorrows from "./Pages/borrow/AllBorrows.jsx";
 
 function App() {
   // return <PizzaPage />;
@@ -45,12 +48,15 @@ function App() {
         {/*  only admin pages */}
         <Route path="/admin/books" element={<BookList />} />
         <Route path="admin/books/new" element={<AddNewBook />} />
+        <Route path="admin/book/edit/:_id" element={<EditBook />} />
 
-        <Route path="admin/book/edit/:id" element={<EditBook />} />
+        {/* all borrows */}
+        <Route path="admin/all-borrows" element={<AllBorrows />} />
 
         {/* private routes */}
+
         <Route path="/dashboard" element={<Dashboard />} />
-        {/* <Route path="my-books" element={<MyBorrow />} /> */}
+        <Route path="/my-books" element={<MyBorrow />} />
       </Routes>
       <ToastContainer />
     </>
