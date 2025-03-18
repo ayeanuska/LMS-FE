@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { MdOutlineAddBox } from "react-icons/md";
 import { BookTable } from "../../components/tables/BookTable";
 import { UserLayout } from "../../components/layouts/UserLayout";
@@ -9,7 +9,10 @@ import { Button } from "react-bootstrap";
 
 const BookList = () => {
   const dispatch = useDispatch();
-  dispatch(setMenu("Books"));
+
+  useEffect(() => {
+    dispatch(setMenu("Books"));
+  }, [dispatch]);
 
   return (
     <UserLayout pageTitle={"Book List"}>
