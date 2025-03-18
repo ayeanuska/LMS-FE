@@ -1,11 +1,10 @@
-import { MdDeviceThermostat } from "react-icons/md";
 import { apiProcessor } from "../../helpers/axiosHelpers";
 
 const borrowEP = import.meta.env.VITE_APP_ROOT_URL + "/borrows";
 
 /// create borrow history api
 
-export const borrowBook = (borrowObj) => {
+export const createBorrowApi = (borrowObj) => {
   const apiObj = {
     method: "post",
     url: borrowEP,
@@ -16,6 +15,23 @@ export const borrowBook = (borrowObj) => {
   return apiProcessor(apiObj);
 };
 
-//fetch borrow book api
+// //fetch borrow book api
+export const fetchBorrow = () => {
+  const apiObj = {
+    method: "get",
+    url: borrowEP,
+    isPrivate: true,
+  };
+  return apiProcessor(apiObj);
+};
 
-// return book api
+// // return book api
+export const returnBook = (id) => {
+  const apiObj = {
+    method: "put",
+    url: borrowEP + "/" + id,
+    isPrivate: true,
+  };
+
+  return apiProcessor(apiObj);
+};
