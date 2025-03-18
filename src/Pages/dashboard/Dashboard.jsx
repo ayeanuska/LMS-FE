@@ -1,28 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { apiProcessor } from "../../helpers/axiosHelpers";
 import { UserLayout } from "../../components/layouts/UserLayout";
+import { useDispatch } from "react-redux";
+import { setMenu } from "../../features/users/userSlice";
 
 const Dashboard = () => {
-  const [user, setUser] = useState({});
-
-  const fetchUserData = async () => {
-    const data = await apiProcessor({
-      method: "get",
-      url: "http://api/v1/auth",
-      isPrivate: true,
-      isRefreshToken: false,
-    });
-
-    if (data && data.status == "success") {
-      setUser(data.user);
-    }
-  };
-  useEffect(() => {
-    fetchUserData();
-  }, []);
-
+  const dispatch = useDispatch();
+  dispatch(setMenu("Dashboard"));
   return (
-    <UserLayout>
+    <UserLayout pageTitle="Dashboard">
       <h1>DASHBOARD</h1>
     </UserLayout>
   );

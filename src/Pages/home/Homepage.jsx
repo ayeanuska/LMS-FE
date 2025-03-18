@@ -14,8 +14,8 @@ import { getAllBookAction } from "../../features/books/bookAction";
 const HomePage = () => {
   // const { books } = useSelector((state) => state.bookInfo);
 
-  const bookStore = useSelector((state) => state.bookInfo);
-
+  const { books } = useSelector((state) => state.bookInfo);
+  console.log(books);
   const [searchedBooks, setSearchBooks] = useState([]);
 
   // const objec1 = { key1: "value", key2: "value2" };
@@ -68,7 +68,7 @@ const HomePage = () => {
   const handleOnSearch = (e) => {
     const { value } = e.target;
     setSearchBooks(
-      bookStore.books.filter(({ title }) =>
+      books.filter(({ title }) =>
         title.toLowerCase().includes(value.toLowerCase())
       )
     );
@@ -82,8 +82,8 @@ const HomePage = () => {
 
   // trigger update  of the seracg book when bookStore.books is updated
   useEffect(() => {
-    setSearchBooks(bookStore.books);
-  }, [bookStore.books]);
+    setSearchBooks(books);
+  }, [books]);
   console.log(searchedBooks);
   return (
     <>

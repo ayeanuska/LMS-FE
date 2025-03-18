@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getAllBookAction } from "../../features/books/bookAction";
 
-//const isPrivate = true;
+const isPrivate = true;
 export const BookTable = () => {
   const dispatch = useDispatch();
 
@@ -21,7 +21,7 @@ export const BookTable = () => {
 
   useEffect(() => {
     //fetch all books for admin
-    dispatch(getAllBookAction(true));
+    dispatch(getAllBookAction(isPrivate));
   }, [dispatch]);
 
   return (
@@ -45,7 +45,7 @@ export const BookTable = () => {
         </thead>
         <tbody>
           {books.map((item, i) => (
-            <tr key={item._id}>
+            <tr key={item._id || i}>
               <td>{i + 1}</td>
               <td>
                 <img src={item.thumbnail} alt="" width={"70px"} />

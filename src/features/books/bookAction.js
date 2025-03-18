@@ -1,6 +1,12 @@
 import { toast } from "react-toastify";
-import { fetchAllBookApi, postNewBookApi } from "./bookAxios";
-import { addBooks } from "./bookSlice";
+import {
+  deleteBook,
+  fetchAllBookApi,
+  fetchSingleBook,
+  postNewBookApi,
+  updateABook,
+} from "./bookAxios";
+import { addBooks, setSelectedBook } from "./bookSlice";
 
 export const getAllBookAction =
   (isPrivate = false) =>
@@ -36,4 +42,39 @@ export const postNewBookAction = (obj) => async (dispatch) => {
   } else {
     return false;
   }
+};
+
+export const getSingleBookAction = (_id) => async (dispatch) => {
+  const { status, books } = await fetchSingleBook(_id);
+  if (status) {
+    dispatch(setSelectedBook(books));
+  }
+};
+
+export const updateSingleBookAction = (obj) => async (dispatch) => {
+  const pending = updateABook(obj);
+  toast.promise(pending, {
+    pending: "PLEASE WAIT...",
+  });
+
+  const { status, message } = await pending;
+  toast[status](message);
+
+  status === "success" && dispatch(getSingleBookAction(obj._id));
+  return { status, message };
+};
+
+export const deleteSingleBookAction = (obj) => async (dispatch) => {
+  const pending = deleteBook(id);
+  toast.promise(pending, {
+    pending: "PLEASE WAIT..",
+    success: pending.message,
+  });
+
+  const { status, message } = await pending;
+  toast[status](message);
+  console.log(status, message);
+
+  // 2. fetch all update booklist
+  dispatch(getAllBookAction(true));
 };

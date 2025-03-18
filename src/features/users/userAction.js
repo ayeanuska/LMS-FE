@@ -5,6 +5,7 @@ import { setUser } from "./userSlice";
 export const loginAction = (form, navigate) => async (dispatch) => {
   //call the login api
   const data = await loginApi({ ...form });
+  console.log(data);
 
   if (data.status == "success") {
     // update user store.

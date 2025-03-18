@@ -32,7 +32,7 @@ const UserSignInForm = () => {
     //prevent default
     e.preventDefault();
     //call login action
-    dispatch(loginAction(form));
+    dispatch(loginAction(form, navigate));
   };
 
   return (

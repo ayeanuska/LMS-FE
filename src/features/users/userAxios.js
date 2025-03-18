@@ -11,6 +11,7 @@ export const loginApi = async (loginObj) => {
     isPrivate: false,
     isRefreshToken: false,
   });
+  return res;
 };
 
 //api to fetch user detail
