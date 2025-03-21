@@ -1,28 +1,42 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getAllBookAction } from "../../features/books/bookAction";
+import {
+  deleteSingleBookAction,
+  getAllBookAction,
+} from "../../features/books/bookAction";
+import DeleteModal from "../DeleteModal";
 
-const isPrivate = true;
+// const isPrivate = true;
+
 export const BookTable = () => {
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedBookId, setSelectedBookId] = useState(null);
   const dispatch = useDispatch();
 
   //GET BOOK LIST FROM BOOK STORE
   // const books = [];
   const { books } = useSelector((state) => state.bookInfo);
+  // console.log(books);
 
-  const handleOnDelete = async (id) => {
+  const handleOnDelete = (id) => {
     // 1. delete axios call
     //call delete action
-    if (window.confirm("Are you sure you want to Delete"))
-      dispatch(deleteSingleBookAction(id));
+    setShowDeleteModal(true);
+    setSelectedBookId(id);
   };
 
   useEffect(() => {
+    dispatch(getAllBookAction(true));
+  }, []);
+
+  console.log(selectedBookId, 1111);
+
+  useEffect(() => {
     //fetch all books for admin
-    dispatch(getAllBookAction(isPrivate));
-  }, [dispatch]);
+    dispatch(getAllBookAction(true));
+  }, []);
 
   return (
     <div>
@@ -33,14 +47,16 @@ export const BookTable = () => {
           <input type="text" className="form-control" />
         </div>
       </div>
+
+      {showDeleteModal ? <DeleteModal id={selectedBookId} /> : ""}
       <hr />
       <Table striped bordered hover>
         <thead>
           <tr>
             <th>#</th>
-            <th>Thumbnail</th>
-            <th>Tittle</th>
-            <th>Action</th>
+            <th>Image</th>
+            <th>Decription</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>

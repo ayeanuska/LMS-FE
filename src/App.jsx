@@ -23,6 +23,7 @@ import "react-toastify/dist/ReactToastify.css";
 import BookList from "./Pages/book/BookList.jsx";
 import MyBorrow from "./Pages/borrow/MyBorrow.jsx";
 import AllBorrows from "./Pages/borrow/AllBorrows.jsx";
+import { autologin } from "./features/users/userAction.js";
 
 function App() {
   // return <PizzaPage />;
@@ -30,7 +31,8 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllBookAction());
-  });
+    dispatch(autologin());
+  }, []);
 
   return (
     <>
@@ -48,7 +50,7 @@ function App() {
         {/*  only admin pages */}
         <Route path="/admin/books" element={<BookList />} />
         <Route path="admin/books/new" element={<AddNewBook />} />
-        <Route path="admin/book/edit/:_id" element={<EditBook />} />
+        <Route path="/admin/book/edit/:_id" element={<EditBook />} />
 
         {/* all borrows */}
         <Route path="admin/all-borrows" element={<AllBorrows />} />

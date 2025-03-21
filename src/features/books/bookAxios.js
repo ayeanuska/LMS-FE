@@ -24,7 +24,7 @@ export const postNewBookApi = (newBookObj) => {
   return apiProcessor(apiObj);
 };
 
-//axios call for enpoint
+//axios call for endpoint
 export const fetchSingleBook = async (_id) => {};
 
 export const updateABook = async ({ _id, ...bookObject }) => {

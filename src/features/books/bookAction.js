@@ -64,7 +64,7 @@ export const updateSingleBookAction = (obj) => async (dispatch) => {
   return { status, message };
 };
 
-export const deleteSingleBookAction = (obj) => async (dispatch) => {
+export const deleteSingleBookAction = (id) => async (dispatch) => {
   const pending = deleteBook(id);
   toast.promise(pending, {
     pending: "PLEASE WAIT..",
