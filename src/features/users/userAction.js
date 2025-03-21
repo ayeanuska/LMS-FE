@@ -1,6 +1,11 @@
 import { renewAccessJWT } from "../../helpers/axiosHelpers";
-import { fetchUserDetailApi, loginApi } from "./userAxios";
+import { createNewUserApi, fetchUserDetailApi, loginApi } from "./userAxios";
 import { setUser } from "./userSlice";
+
+export const registerUserAction = (payload) => async (dispatch) => {
+  const res = await createNewUserApi(payload);
+  console.log(res);
+};
 
 export const loginAction = (form, navigate) => async (dispatch) => {
   //call the login api

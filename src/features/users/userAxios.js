@@ -27,7 +27,7 @@ export const fetchUserDetailApi = () => {
 };
 
 // api to create new user
-export const createNewUserApi = (newUserApi) => {
+export const createNewUserApi = (newUserObj) => {
   const apiObj = {
     method: "post",
     url: authEP + "/register",
