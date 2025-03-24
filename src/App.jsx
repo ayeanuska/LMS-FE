@@ -4,6 +4,7 @@ import { DefaultLayout } from "./components/layouts/DefaultLayout.jsx";
 
 import SignInPage from "../src/Pages/auth/SignInPage.jsx";
 import SignUpPage from "../src/Pages/auth/SignUpPage.jsx";
+import ForgetPasswordPage from "./Pages/auth/ForgetPasswordPage.jsx";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -42,6 +43,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/signin" element={<SignInPage />} />
+          <Route path="/forgetPassword" element={<ForgetPasswordPage />} />
 
           {/* book landing or book detail page */}
           <Route path="/book/:_id" element={<BookLandingPage />} />
@@ -51,7 +53,6 @@ function App() {
         <Route path="/admin/books" element={<BookList />} />
         <Route path="admin/books/new" element={<AddNewBook />} />
         <Route path="/admin/book/edit/:_id" element={<EditBook />} />
-
         {/* all borrows */}
         <Route path="admin/all-borrows" element={<AllBorrows />} />
 
