@@ -2,6 +2,7 @@ import React from "react";
 import UserSignInForm from "../../components/forms/UserSignInForm";
 import { Container, Row, Col, Card, Image } from "react-bootstrap";
 import loginpage from "../../assets/loginpage.jpg";
+import { Link } from "react-router-dom";
 
 const SignInPage = () => {
   return (
@@ -12,6 +13,10 @@ const SignInPage = () => {
           <Card className="shadow rounded p-4 text-center w-100">
             <Card.Title className="mb-3">Log in</Card.Title>
             <UserSignInForm />
+
+            <div className="text-end my-3">
+              Forget Password? <Link to="/forgetPassword">Reset Now</Link>
+            </div>
           </Card>
         </Col>
 

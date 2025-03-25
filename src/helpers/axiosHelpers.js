@@ -3,7 +3,7 @@ import axios from "axios";
 const authEP = "http://localhost:9002/api/v1/auth";
 
 const getAccessJWT = () => {
-  return sessionStorage.getItem("acessJWT");
+  return sessionStorage.getItem("accessJWT");
 };
 
 const getRefreshJWT = () => {
@@ -34,6 +34,7 @@ export const apiProcessor = async ({
 
     return response.data;
   } catch (error) {
+    console.log(error?.message);
     //1. check error messge for "jwt expired"
     if (error?.response?.data?.message == "jwt expired") {
       // call renew jwt token
