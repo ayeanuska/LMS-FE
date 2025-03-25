@@ -1,7 +1,7 @@
 //validate pw by using regex
 //At least one digit
 //1 uppercase
-//1 lowecase
+//1 lowercase
 // 1- digit
 // 1- special character (!@#$%^&*()<>?{|)
 //password didnt match
