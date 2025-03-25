@@ -1,6 +1,7 @@
 import React from "react";
 import UserSignUpForm from "../../components/forms/UserSignUpForm";
 import signUpImage from "../../assets/SignUpPage.jpg"; // Import the image
+import useForm from "../../hooks/useForm";
 
 const SignUpPage = () => {
   return (
