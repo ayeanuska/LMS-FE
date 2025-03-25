@@ -16,7 +16,7 @@ export const loginAction = (form, navigate) => async (dispatch) => {
     // update user store.
     dispatch(setUser(data.user));
     //update storage session for acess
-    sessionStorage.setItem("acessJWT", data.accessToken);
+    sessionStorage.setItem("accessJWT", data.accessToken);
 
     //updating the local storage for refresh
     localStorage.setItem("refreshJWT", data.refreshToken);
