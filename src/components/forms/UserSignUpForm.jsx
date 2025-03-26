@@ -39,8 +39,9 @@ const UserSignUpForm = () => {
       return { status: "success", message: "Sign up successful!" };
     } catch (error) {
       console.log(error);
+
       // Show error toast if something goes wrong
-      toast.error("Signup failed. Please try again!");
+      toast.error(error.message || "Signup failed. Please try again!");
       return { status: "error", message: "Signup failed" };
     }
   };
