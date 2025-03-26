@@ -10,6 +10,7 @@ const getRefreshJWT = () => {
   return localStorage.getItem("refreshJWT");
 };
 
+//file used to make req to server and get back response from the server
 export const apiProcessor = async ({
   method,
   url,

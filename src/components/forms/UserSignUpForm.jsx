@@ -7,11 +7,16 @@ import CustomInput from "../custom-input/CustomInput.jsx";
 import { getSingleBookAction } from "../../features/books/bookAction.js";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
-import { registerUserAction } from "../../features/users/userAction.js";
+import {
+  getUserObj,
+  registerUserAction,
+} from "../../features/users/userAction.js";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const UserSignUpForm = () => {
   const { form, setForm, handleOnChange, passwordErrors } = useForm({});
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
@@ -22,14 +27,14 @@ const UserSignUpForm = () => {
       return alert("Password do not match");
 
     try {
-      // Replace this with your actual API call or signup logic
+      // api call - signup api
       dispatch(registerUserAction(form));
 
       // Show success toast once signup is complete
       toast.success("Sign up successful!");
 
-      // // If signup is successful, dispatch action
-      // dispatch(getSingleBookAction(form._id));
+      //redirect to login page with 2s delay so that user can see the toast
+      setTimeout(() => navigate("/signin"), 2000);
 
       return { status: "success", message: "Sign up successful!" };
     } catch (error) {
