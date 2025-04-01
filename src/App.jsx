@@ -55,7 +55,7 @@ function App() {
         <Route path="admin/books/new" element={<AddNewBook />} />
         <Route path="/admin/book/edit/:_id" element={<EditBook />} />
         {/* all borrows */}
-        <Route path="admin/all-borrows" element={<AllBorrows />} />
+        <Route path="/admin/all-burrows" element={<AllBorrows />} />
 
         {/* private routes */}
 

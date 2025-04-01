@@ -19,7 +19,7 @@ const BorrowList = () => {
   useEffect(() => {
     //call fetch borrow action
     dispatch(getBorrowListAction());
-  });
+  },[]);
 
   return (
     <div>

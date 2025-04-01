@@ -4,6 +4,13 @@ const authEP = import.meta.env.VITE_APP_ROOT_URL + "/auth";
 
 //api to login
 export const loginApi = async (loginObj) => {
+
+  delete loginObj.confirmPassword;
+
+
+  
+
+  
   const res = await apiProcessor({
     method: "post",
     url: authEP + "/login",

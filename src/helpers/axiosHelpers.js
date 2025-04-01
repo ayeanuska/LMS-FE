@@ -16,13 +16,13 @@ export const apiProcessor = async ({
   url,
   data,
   isPrivate,
-  isRefreshToken = false,
+  isRefreshToken,
 }) => {
   const headers = {
     Authorization: isPrivate
       ? getAccessJWT()
       : isRefreshToken
-      ? getRefreshJWT()
+      ? getRefreshJWT() =false
       : null,
   };
   try {
@@ -40,7 +40,6 @@ export const apiProcessor = async ({
     if (error?.response?.data?.message == "jwt expired") {
       // call renew jwt token
       //get access token and store it in seession storage
-
       const refreshData = apiProcessor({
         method: "get",
         utl: authEP + "/renew-jwt",

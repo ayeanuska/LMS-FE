@@ -13,7 +13,6 @@ const MyBorrow = () => {
   }, []);
 
   // get my borrow list
-  dispatch(getBorrowListAction());
 
   return (
     <UserLayout pageTitle={"My Borrowed Book"}>

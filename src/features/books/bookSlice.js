@@ -9,7 +9,7 @@ const bookSlice = createSlice({
   initialState,
   reducers: {
     setBooks: (state, action) => {
-      state.books = action.payload;
+      state.books = action.payload;``
     },
     setSelectedBook: (state, action) => {
       state.selectedBook = action.payload;

@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { validator } from "../utils/validatePassword";
+import { validator}  from "../utils/validatePassword";
+
+
+
+
 const handleOnChange = ({ e, form, setForm }) => {
   const { name, value } = e.target;
 
@@ -9,8 +13,8 @@ const handleOnChange = ({ e, form, setForm }) => {
   });
 };
 
-const useForm = (initialState) => {
-  const [form, setForm] = useState(initialState);
+const useForm = () => {
+  const [form, setForm] = useState({});
   const [passwordErrors, setPassswordErrors] = useState([]);
 
   //only when password & confirm password changes

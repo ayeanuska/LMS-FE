@@ -27,7 +27,7 @@ export const loginAction = (form, navigate) => async (dispatch) => {
 
 // action to get user object
 export const getUserObj = () => async (dispatch) => {
-  const { status, user } = await fetchUserDetailApi();
+  const {user } = await fetchUserDetailApi();
 
   //update store
   dispatch(setUser(user));
@@ -37,7 +37,7 @@ export const getUserObj = () => async (dispatch) => {
 export const autologin = () => async (dispatch) => {
   const accessJWT = sessionStorage.getItem("accessJWT");
   const refreshJWT = localStorage.getItem("refreshJWT");
-  console.log("Auto login");
+
 
   // access when jwt exists
   if (accessJWT) {
