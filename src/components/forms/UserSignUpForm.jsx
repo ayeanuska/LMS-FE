@@ -14,7 +14,7 @@ import {
 import { Navigate, useNavigate } from "react-router-dom";
 
 const UserSignUpForm = () => {
-  const { form, setForm, handleOnChange, passwordErrors } = useForm({});
+  const { form, setForm, handleOnChange, passwordErrors } = useForm({ });
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
