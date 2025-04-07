@@ -26,7 +26,7 @@ export const Header = () => {
             {user && user._id ? (
               <>
                 {/* {private menu} */}
-                <Link className="nav-link" to="/sasdfasd/dashboard">
+                <Link className="nav-link" to="/dashboard">
                   Dashboard
                 </Link>
                 <Link

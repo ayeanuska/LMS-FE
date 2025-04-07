@@ -1,18 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { MdOutlineAddBox } from "react-icons/md";
 import { BookTable } from "../../components/tables/BookTable";
 import { UserLayout } from "../../components/layouts/UserLayout";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setMenu } from "../../features/users/userSlice";
 import { Button } from "react-bootstrap";
+import { getAllBookAction } from "../../features/books/bookAction";
 
 const BookList = () => {
   const dispatch = useDispatch();
+  const [book, setBooks] = useState([]);
+
+  const { books } = useSelector((state) => state.bookInfo);
 
   useEffect(() => {
     dispatch(setMenu("Books"));
+    //fetch all books for admin
+    dispatch(getAllBookAction());
   }, [dispatch]);
+  useEffect(() => {
+    setBooks(books);
+  }, [books]);
 
   return (
     <UserLayout pageTitle={"Book List"}>
@@ -26,7 +35,7 @@ const BookList = () => {
         </Link>
       </div>
       {/* table here */}
-      <BookTable />
+      <BookTable books={book} />
     </UserLayout>
   );
 };

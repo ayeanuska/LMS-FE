@@ -9,13 +9,13 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // import { apiProcessor } from "../../helpers/axiosHelpers";
 // import { setBooks } from "../../features/books/bookSlice";
-import { getAllBookAction } from "../../features/books/bookAction";
+import { getAllPublicBookAction } from "../../features/books/bookAction";
 
 const HomePage = () => {
   // const { books } = useSelector((state) => state.bookInfo);
 
-  const { books } = useSelector((state) => state.bookInfo);
-  console.log(books);
+  const { pubBooks } = useSelector((state) => state.bookInfo);
+  // console.log(books);
   const [searchedBooks, setSearchBooks] = useState([]);
 
   // const objec1 = { key1: "value", key2: "value2" };
@@ -59,7 +59,7 @@ const HomePage = () => {
   //action to fetch books
   const fetchBooks = async () => {
     try {
-      dispatch(getAllBookAction());
+      dispatch(getAllPublicBookAction());
     } catch (error) {
       console.log(error);
     }
@@ -68,7 +68,7 @@ const HomePage = () => {
   const handleOnSearch = (e) => {
     const { value } = e.target;
     setSearchBooks(
-      books.filter(({ title }) =>
+      pubBooks.filter(({ title }) =>
         title.toLowerCase().includes(value.toLowerCase())
       )
     );
@@ -82,9 +82,9 @@ const HomePage = () => {
 
   // trigger update  of the seracg book when bookStore.books is updated
   useEffect(() => {
-    setSearchBooks(books);
-  }, [books]);
-  console.log(searchedBooks);
+    setSearchBooks(pubBooks);
+  }, [pubBooks]);
+
   return (
     <>
       <Hero />

@@ -13,7 +13,7 @@ import Dashboard from "./Pages/dashboard/Dashboard";
 // import PizzaPage from "./Pages/pizzaPage/PizzaPage.jsx";
 import BookLandingPage from "./Pages/book/BookLandingPage.jsx";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getAllBookAction } from "./features/books/bookAction.js";
 
@@ -25,14 +25,16 @@ import BookList from "./Pages/book/BookList.jsx";
 import MyBorrow from "./Pages/borrow/MyBorrow.jsx";
 import AllBorrows from "./Pages/borrow/AllBorrows.jsx";
 import { autologin } from "./features/users/userAction.js";
-import HomePage from "./Pages/home/HomePage.jsx";
-
+import HomePage from "./Pages/home/Homepage.jsx";
 function App() {
   // return <PizzaPage />;
 
   const dispatch = useDispatch();
+  const { books } = useSelector((state) => state.bookInfo);
+  console.log(books);
+
   useEffect(() => {
-    dispatch(getAllBookAction());
+    // dispatch(getAllBookAction());
     dispatch(autologin());
   }, []);
 

@@ -2,22 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  deleteSingleBookAction,
-  getAllBookAction,
-} from "../../features/books/bookAction";
 import DeleteModal from "../DeleteModal";
 
 // const isPrivate = true;
 
-export const BookTable = () => {
+export const BookTable = ({ books }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedBookId, setSelectedBookId] = useState(null);
   const dispatch = useDispatch();
 
   //GET BOOK LIST FROM BOOK STORE
   // const books = [];
-  const { books } = useSelector((state) => state.bookInfo);
+  // const { books } = useSelector((state) => state.bookInfo);
   // console.log(books);
 
   const handleOnDelete = (id) => {
@@ -26,17 +22,6 @@ export const BookTable = () => {
     setShowDeleteModal(true);
     setSelectedBookId(id);
   };
-
-  useEffect(() => {
-    dispatch(getAllBookAction(true));
-  }, []);
-
-  console.log(selectedBookId, 1111);
-
-  useEffect(() => {
-    //fetch all books for admin
-    dispatch(getAllBookAction(true));
-  }, []);
 
   return (
     <div>

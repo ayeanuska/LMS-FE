@@ -2,23 +2,31 @@ import { toast } from "react-toastify";
 import {
   deleteBook,
   fetchAllBookApi,
+  fetchPubBookApi,
   fetchSingleBook,
   postNewBookApi,
   updateABook,
 } from "./bookAxios";
-import { addBooks, setSelectedBook } from "./bookSlice";
+import { setBooks, setPubBooks, setSelectedBook } from "./bookSlice";
 
-export const getAllBookAction =
-  (isPrivate = false) =>
-  async (dispatch) => {
-    //  1. fetch data
-    const { books, status } = await fetchAllBookApi(isPrivate);
+export const getAllBookAction = () => async (dispatch) => {
+  //  1. fetch data
+  const pending = fetchAllBookApi();
+  toast.promise(pending, {
+    pending: "Fetching the Books!",
+  });
+  const { books, status, message } = await pending;
+  console.log(books, "admin books");
+  //update the book store
+  dispatch(setBooks(books));
+  toast[status](message);
+};
 
-    //update the book store
-    if (status === "success" && books) {
-      dispatch(addBooks(books));
-    }
-  };
+export const getAllPublicBookAction = () => async (dispatch) => {
+  const { books, status } = await fetchPubBookApi();
+
+  dispatch(setPubBooks(books));
+};
 
 export const postNewBookAction = (obj) => async (dispatch) => {
   const pending = postNewBookApi(obj);
@@ -37,7 +45,7 @@ export const postNewBookAction = (obj) => async (dispatch) => {
     // then call function to fetch all the data
     // update the store data new book
 
-    dispatch(getAllBookAction(true));
+    dispatch(getAllBookAction());
     return true;
   } else {
     return false;
@@ -76,5 +84,5 @@ export const deleteSingleBookAction = (id) => async (dispatch) => {
   console.log(status, message);
 
   // 2. fetch all update booklist
-  dispatch(getAllBookAction(true));
+  dispatch(getAllBookAction());
 };

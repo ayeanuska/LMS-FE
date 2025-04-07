@@ -5,6 +5,17 @@ const bookEP = import.meta.env.VITE_APP_ROOT_URL + "/books";
 export const fetchAllBookApi = () => {
   const apiObj = {
     method: "get",
+    url: bookEP + "/",
+    isPrivate: true,
+    isRefreshToken: false,
+  };
+
+  return apiProcessor(apiObj);
+};
+
+export const fetchPubBookApi = () => {
+  const apiObj = {
+    method: "get",
     url: bookEP + "/pub-books",
     isPrivate: false,
     isRefreshToken: false,
