@@ -26,6 +26,7 @@ import MyBorrow from "./Pages/borrow/MyBorrow.jsx";
 import AllBorrows from "./Pages/borrow/AllBorrows.jsx";
 import { autologin } from "./features/users/userAction.js";
 import HomePage from "./Pages/home/Homepage.jsx";
+import StudentList from "./Pages/students/StudentList.jsx";
 function App() {
   // return <PizzaPage />;
 
@@ -51,16 +52,18 @@ function App() {
           {/* book landing or book detail page */}
           <Route path="/book/:_id" element={<BookLandingPage />} />
         </Route>
-
         {/*  only admin pages */}
         <Route path="/admin/books" element={<BookList />} />
         <Route path="admin/books/new" element={<AddNewBook />} />
         <Route path="/admin/book/edit/:_id" element={<EditBook />} />
+
         {/* all borrows */}
         <Route path="/admin/all-burrows" element={<AllBorrows />} />
+        {/* display student list  */}
+        <Route path="/admin/students" element={<StudentList />} />
+        <Route path="/admin/reviews" element={<Review />} />
 
         {/* private routes */}
-
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/my-books" element={<MyBorrow />} />
       </Routes>
