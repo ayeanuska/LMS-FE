@@ -27,6 +27,7 @@ import AllBorrows from "./Pages/borrow/AllBorrows.jsx";
 import { autologin } from "./features/users/userAction.js";
 import HomePage from "./Pages/home/Homepage.jsx";
 import StudentList from "./Pages/students/StudentList.jsx";
+import Review from "./Pages/reviews/Review.jsx";
 function App() {
   // return <PizzaPage />;
 
