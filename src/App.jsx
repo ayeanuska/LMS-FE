@@ -32,11 +32,10 @@ function App() {
   // return <PizzaPage />;
 
   const dispatch = useDispatch();
-  const { books } = useSelector((state) => state.bookInfo);
-  console.log(books);
-
   useEffect(() => {
-    // dispatch(getAllBookAction());
+    dispatch(getAllBookAction());
+    dispatch(getReviews(false));
+    //done : autologin dispatch when refreshing page.
     dispatch(autologin());
   }, []);
 
