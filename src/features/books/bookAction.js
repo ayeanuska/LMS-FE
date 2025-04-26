@@ -8,6 +8,7 @@ import {
   updateABook,
 } from "./bookAxios";
 import { setBooks, setPubBooks, setSelectedBook } from "./bookSlice";
+import { CgLayoutGrid } from "react-icons/cg";
 
 export const getAllBookAction = () => async (dispatch) => {
   //  1. fetch data
@@ -16,7 +17,7 @@ export const getAllBookAction = () => async (dispatch) => {
     pending: "Fetching the Books!",
   });
   const { books, status, message } = await pending;
-  console.log(books, "admin books");
+
   //update the book store
   dispatch(setBooks(books));
   toast[status](message);

@@ -1,4 +1,4 @@
-import { fetchReview, fetchReviews, postNewReview, updateReview } from "./reviewAxios";
+import { fetchReviews, postNewReview, updateReview } from "./reviewAxios";
 import { toast } from "react-toastify";
 import { setAllReview, setPubReviews, updateReviewStatus } from "./reviewSlice";
 
@@ -22,7 +22,7 @@ export const updateReviewAction = (obj) => async (dispatch) => {
   const pending = updateReview(obj);
 
   toast.promise(pending, {
-    pending: "Please wait..",
+    pending: "Please wait..", 
   });
 
   const [status, message] = await pending;
@@ -34,16 +34,14 @@ export const updateReviewAction = (obj) => async (dispatch) => {
   }
 };
 
-
 // get reviews
 
-export const getReviews =(isPrivate)=>{
-    const {status, reviews}= await fetchReviews(isPrivate)
+export const getReviews = (isPrivate) => async (dispatch) => {
+  const { status, reviews } = await fetchReviews(isPrivate);
 
-
-    if (status){
-        isPrivate ? dispatch(setAllReview(reviews)):
-        dispatch(setPubReviews(reviews))
-    }
-}
-
+  if (status) {
+    isPrivate
+      ? dispatch(setAllReview(reviews))
+      : dispatch(setPubReviews(reviews));
+  }
+};

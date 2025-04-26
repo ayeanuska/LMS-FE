@@ -10,7 +10,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Dashboard from "./Pages/dashboard/Dashboard";
 
-// import PizzaPage from "./Pages/pizzaPage/PizzaPage.jsx";
+
 import BookLandingPage from "./Pages/book/BookLandingPage.jsx";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -28,8 +28,9 @@ import { autologin } from "./features/users/userAction.js";
 import HomePage from "./Pages/home/Homepage.jsx";
 import StudentList from "./Pages/students/StudentList.jsx";
 import Review from "./Pages/reviews/Review.jsx";
+import { getReviews } from "./features/reviews/reviewAction.js";
 function App() {
-  // return <PizzaPage />;
+
 
   const dispatch = useDispatch();
   useEffect(() => {

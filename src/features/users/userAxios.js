@@ -7,9 +7,6 @@ export const loginApi = async (loginObj) => {
 
   delete loginObj.confirmPassword;
 
-
-  
-
   
   const res = await apiProcessor({
     method: "post",

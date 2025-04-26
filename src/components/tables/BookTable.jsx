@@ -3,18 +3,18 @@ import { Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import DeleteModal from "../DeleteModal";
+import { getAllBookAction } from "../../features/books/bookAction";
 
 // const isPrivate = true;
 
-export const BookTable = ({ books }) => {
+export const BookTable = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedBookId, setSelectedBookId] = useState(null);
   const dispatch = useDispatch();
 
   //GET BOOK LIST FROM BOOK STORE
   // const books = [];
-  // const { books } = useSelector((state) => state.bookInfo);
-  // console.log(books);
+  const { books } = useSelector((state) => state.bookInfo);
 
   const handleOnDelete = (id) => {
     // 1. delete axios call
@@ -22,11 +22,14 @@ export const BookTable = ({ books }) => {
     setShowDeleteModal(true);
     setSelectedBookId(id);
   };
+  useEffect(() => {
+    dispatch(getAllBookAction());
+  }, [books]);
 
   return (
     <div>
       <div className="d-flex justify-content-between mb-4">
-        <div>{books.length} Books found!</div>
+        <div>{books?.length || 0} Books found!</div>
 
         <div>
           <input type="text" className="form-control" />

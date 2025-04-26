@@ -1,6 +1,7 @@
 import axios from "axios";
-
-const authEP = "http://localhost:9002/api/v1/auth";
+import { CgLayoutGrid } from "react-icons/cg";
+const authEP = import.meta.env.VITE_APP_ROOT_URL + "/auth"; // change to enc variable
+// const authEP = "http://localhost:9002/api/v1/auth";
 
 const getAccessJWT = () => {
   return sessionStorage.getItem("accessJWT");
@@ -22,9 +23,11 @@ export const apiProcessor = async ({
     Authorization: isPrivate
       ? getAccessJWT()
       : isRefreshToken
-      ? getRefreshJWT() =false
+      ? getRefreshJWT()
       : null,
   };
+
+  headers.Authorization = "Bearer " + headers.Authorization;
   try {
     const response = await axios({
       method,
@@ -35,35 +38,35 @@ export const apiProcessor = async ({
 
     return response.data;
   } catch (error) {
-    console.log(error?.message);
-    //1. check error messge for "jwt expired"
+    console.log(error);
+    // 1. check error messge for "jwt expired"
     if (error?.response?.data?.message == "jwt expired") {
-      // call renew jwt token
-      //get access token and store it in seession storage
-      const refreshData = apiProcessor({
+      //   // call renew jwt token
+      //   //get access token and store it in seession storage
+      const refreshData = await apiProcessor({
         method: "get",
-        utl: authEP + "/renew-jwt",
+        url: authEP + "/renew-jwt",
         isPrivate: false,
         isRefreshToken: true,
       });
 
       if (refreshData && refreshData?.status == "success") {
+        console.log(refreshData);
+
         //update sessionStorage
-        sessionStorage.seItem("accessJWT", refreshData.accessToken);
+        sessionStorage.setItem("accessJWT", refreshData.accessToken);
 
         // return original call
 
-        return apiProcessor({
+        return await apiProcessor({
           method,
           url,
           data,
           isPrivate,
         });
       } else {
-        return {
-          status: "error",
-          message: "error reading refresh token",
-        };
+        sessionStorage.removeItem("accessJWT");
+        localStorage.removeItem("refreshJWT");
       }
     }
 

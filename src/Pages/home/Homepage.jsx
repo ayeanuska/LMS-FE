@@ -53,8 +53,8 @@ const HomePage = () => {
   // ]);
 
   // useEffect(() => {
-  //   setSearchBooks(books);
-  // }, [books]);
+  //   setSearchBooks(pubBooks.books);
+  // }, [pubBooks.books]);
 
   //action to fetch books
   const fetchBooks = async () => {
@@ -95,7 +95,7 @@ const HomePage = () => {
       <Container>
         <Row>
           <Col className="d-flex justify-content-between mt-5">
-            <label htmlFor="">{searchedBooks.length} books found!</label>
+            <label htmlFor="">{searchedBooks.length || 0} books found!</label>
             <div>
               <Form.Control
                 onChange={handleOnSearch}

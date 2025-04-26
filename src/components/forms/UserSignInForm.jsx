@@ -24,7 +24,7 @@ const UserSignInForm = () => {
   const sendTo = location?.state?.from?.location?.pathname || "/dashboard";
 
   useEffect(() => {
-    // TODO: navigate to location where the user travelled from
+    //  navigate to location where the user travelled from
     user?._id && navigate(sendTo);
   }, [user?._id, navigate, sendTo]);
 

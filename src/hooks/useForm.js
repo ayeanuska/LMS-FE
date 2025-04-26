@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-import { validator}  from "../utils/validatePassword";
-
-
-
+import { validator } from "../utils/validatePassword";
 
 const handleOnChange = ({ e, form, setForm }) => {
   const { name, value } = e.target;
