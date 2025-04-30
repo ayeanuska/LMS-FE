@@ -27,7 +27,6 @@ const EditBook = () => {
   }, [selectedBook]);
 
   const handleOnSubmit = async (e) => {
-    s;
     e.prevetDefault();
     const { __v, createdAt, isbn, updatedAt, ...rest } = form;
 
@@ -43,7 +42,7 @@ const EditBook = () => {
       <div className="mt-5">
         {/* form here  */}
 
-        <h4 className="py-4">Update the new book</h4>
+        <h4 className="py-4">Update this book</h4>
 
         <Form onSubmit={handleOnSubmit}>
           <Form.Check
@@ -65,7 +64,7 @@ const EditBook = () => {
               key={i}
               {...input}
               onChange={handleOnChange}
-              value={form[input.name]}
+              value={form?.[input.name]}
             />
           ))}
 

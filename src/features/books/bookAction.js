@@ -13,14 +13,11 @@ import { CgLayoutGrid } from "react-icons/cg";
 export const getAllBookAction = () => async (dispatch) => {
   //  1. fetch data
   const pending = fetchAllBookApi();
-  toast.promise(pending, {
-    pending: "Fetching the Books!",
-  });
+  //
   const { books, status, message } = await pending;
 
   //update the book store
   dispatch(setBooks(books));
-  toast[status](message);
 };
 
 export const getAllPublicBookAction = () => async (dispatch) => {

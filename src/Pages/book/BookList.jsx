@@ -10,18 +10,29 @@ import { getAllBookAction } from "../../features/books/bookAction";
 
 const BookList = () => {
   const dispatch = useDispatch();
-  const [book, setBooks] = useState([]);
+  const { user } = useSelector((state) => state.userInfo);
+  // const [book, setBooks] = useState([]);
 
+  // const { books } = useSelector((state) => state.bookInfo);
+
+  // useEffect(() => {
+  //   dispatch(setMenu("Books"));
+  //   //fetch all books for admin
+  //   if (book.length === 0) {
+  //     dispatch(getAllBookAction());
+  //     setBooks(books);
+  //     console.log("fetched");
+  //   }
+  // }, [dispatch, book]);
+  const [displayBooks, setDisplayBook] = useState([]);
   const { books } = useSelector((state) => state.bookInfo);
+  useEffect(() => {
+    setDisplayBook(books);
+  }, [dispatch, books]);
 
   useEffect(() => {
-    dispatch(setMenu("Books"));
-    //fetch all books for admin
     dispatch(getAllBookAction());
-  }, [dispatch]);
-  useEffect(() => {
-    setBooks(books);
-  }, [books]);
+  }, [user._id]);
 
   return (
     <UserLayout pageTitle={"Book List"}>
@@ -35,7 +46,7 @@ const BookList = () => {
         </Link>
       </div>
       {/* table here */}
-      <BookTable books={book} />
+      <BookTable books={displayBooks} />
     </UserLayout>
   );
 };
