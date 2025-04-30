@@ -8,13 +8,14 @@ import { getAllBookAction } from "../../features/books/bookAction";
 // const isPrivate = true;
 
 export const BookTable = () => {
+  const books = useSelector((state) => state.bookInfo.books);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedBookId, setSelectedBookId] = useState(null);
   const dispatch = useDispatch();
 
-  //GET BOOK LIST FROM BOOK STORE
-  // const books = [];
-  const { books } = useSelector((state) => state.bookInfo);
+  useEffect(() => {
+    dispatch(getAllBookAction());
+  }, []);
 
   const handleOnDelete = (id) => {
     // 1. delete axios call
@@ -22,9 +23,15 @@ export const BookTable = () => {
     setShowDeleteModal(true);
     setSelectedBookId(id);
   };
-  useEffect(() => {
-    dispatch(getAllBookAction());
-  }, [books]);
+
+  const handleonCloseModal = (deleted) => {
+    setShowDeleteModal(false);
+    setSelectedBookId(null);
+
+    if (deleted) {
+      dispatch(getAllBookAction());
+    }
+  };
 
   return (
     <div>
@@ -36,7 +43,12 @@ export const BookTable = () => {
         </div>
       </div>
 
-      {showDeleteModal ? <DeleteModal id={selectedBookId} /> : ""}
+      {/* {showDeleteModal ? <DeleteModal id={selectedBookId} /> : ""} */}
+
+      {showDeleteModal && (
+        <DeleteModal id={selectedBookId} onClose={handleonCloseModal} />
+      )}
+
       <hr />
       <Table striped bordered hover>
         <thead>
@@ -48,7 +60,7 @@ export const BookTable = () => {
           </tr>
         </thead>
         <tbody>
-          {books.map((item, i) => (
+          {books?.map((item, i) => (
             <tr key={item._id || i}>
               <td>{i + 1}</td>
               <td>
