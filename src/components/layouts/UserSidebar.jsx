@@ -56,7 +56,7 @@ export const UserSidebar = () => {
       : sidelinks.filter((item) => !item.isAdminOnly);
   return (
     <Stack gap={1}>
-      {list.map(({ title, to, icon }) => (
+      {list?.map(({ title, to, icon }) => (
         <Link
           key={title}
           to={to}

@@ -53,13 +53,13 @@ const UserSignUpForm = () => {
       <hr />
 
       <Form onSubmit={handleOnSubmit}>
-        {userSingUpInputes.map((input) => (
+        {userSingUpInputes?.map((input) => (
           <CustomInput key={input.name} {...input} onChange={handleOnChange} />
         ))}
         <div className="py-3">
           <ul className="text-danger">
             {passwordErrors.length > 0 &&
-              passwordErrors.map((msg) => <li key={msg}>{msg}</li>)}
+              passwordErrors?.map((msg) => <li key={msg}>{msg}</li>)}
           </ul>
         </div>
         <Form.Group className="mb-3 d-grid" controlId="formBasicEmail">

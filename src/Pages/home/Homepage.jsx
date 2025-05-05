@@ -9,7 +9,10 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // import { apiProcessor } from "../../helpers/axiosHelpers";
 // import { setBooks } from "../../features/books/bookSlice";
-import { getAllPublicBookAction } from "../../features/books/bookAction";
+import {
+  getAllPublicBookAction,
+  getSingleBookAction,
+} from "../../features/books/bookAction";
 
 const HomePage = () => {
   // const { books } = useSelector((state) => state.bookInfo);
@@ -82,6 +85,8 @@ const HomePage = () => {
 
   // trigger update  of the seracg book when bookStore.books is updated
   useEffect(() => {
+    console.log("pubBooks", pubBooks);
+
     setSearchBooks(pubBooks);
   }, [pubBooks]);
 
@@ -110,7 +115,13 @@ const HomePage = () => {
             {searchedBooks?.map(
               (book) =>
                 book.status === "active" && (
-                  <Link key={book._id} to={"/book/" + book._id}>
+                  <Link
+                    key={book._id}
+                    to={"/book/" + book._id}
+                    onClick={() => {
+                      dispatch(getSingleBookAction(book._id));
+                    }}
+                  >
                     <CustomCard {...book} />
                   </Link>
                 )

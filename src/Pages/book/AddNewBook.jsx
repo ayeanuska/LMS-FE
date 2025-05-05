@@ -41,7 +41,7 @@ const AddNewBook = () => {
 
         <h4 className="py-4 "> Add new book Here </h4>
         <Form onSubmit={handleOnSubmit}>
-          {bookInputes.map((input, i) => (
+          {bookInputes?.map((input, i) => (
             <CustomInput
               key={i}
               {...input}

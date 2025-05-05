@@ -3,6 +3,7 @@ import { Button, Col, Row, Spinner, Tab, Tabs } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { borrowBookAction } from "../../features/borrows/borrowAction";
+import { getSingleBookAction } from "../../features/books/bookAction";
 
 const BookLandingPage = () => {
   const location = useLocation();
@@ -10,11 +11,15 @@ const BookLandingPage = () => {
   const { _id } = useParams();
 
   const { books } = useSelector((state) => state.bookInfo);
+  console.log(books);
+
   const { user } = useSelector((state) => state.userInfo);
+  console.log(user);
 
   const book = books?.find((item) => item._id === _id);
+  console.log(book);
 
-  if (!book?._id) {
+  if (!book) {
     return <Spinner animation="border" variant="primary" />;
   }
 
@@ -48,7 +53,9 @@ const BookLandingPage = () => {
     );
     // }
   };
-
+  useEffect(() => {
+    dispatch(getSingleBookAction(_id));
+  }, [book]);
   return (
     <>
       <Row className="g-2">

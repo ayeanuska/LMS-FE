@@ -11,20 +11,31 @@ import { setBooks, setPubBooks, setSelectedBook } from "./bookSlice";
 import { CgLayoutGrid } from "react-icons/cg";
 import e from "cors";
 
-export const getAllBookAction = () => async (dispatch) => {
-  //  1. fetch data
-  const pending = fetchAllBookApi();
-  //
-  const { books, status, message } = await pending;
+export const getAllBookAction =
+  (isPrivate = false) =>
+  async (dispatch) => {
+    //  1. fetch data
+    const pending = fetchAllBookApi(isPrivate);
+    //
+    const { books, status } = await pending;
 
-  //update the book store
-  dispatch(setBooks(books));
-};
+    if (status === "success" && books) {
+      //update the book store
+      dispatch(setBooks(books));
+    }
+  };
 
 export const getAllPublicBookAction = () => async (dispatch) => {
-  const { books, status } = await fetchPubBookApi();
+  try {
+    const { books, status } = await fetchPubBookApi();
 
-  dispatch(setPubBooks(books));
+    if (status === "success" && books) {
+      //update the book store
+      dispatch(setPubBooks(books));
+    }
+  } catch (error) {
+    console.error("Error fetching public books:", error);
+  }
 };
 
 export const postNewBookAction = (obj) => async (dispatch) => {
@@ -52,9 +63,14 @@ export const postNewBookAction = (obj) => async (dispatch) => {
 };
 
 export const getSingleBookAction = (_id) => async (dispatch) => {
-  const { status, book } = await fetchSingleBook(_id);
+  try {
+    const { response } = await fetchSingleBook(_id);
+  } catch (error) {}
+
   if (status) {
     dispatch(setSelectedBook(book));
+  } else {
+    console.error("Failed to fetch single book");
   }
 };
 

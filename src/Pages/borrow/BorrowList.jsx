@@ -50,7 +50,7 @@ const BorrowList = () => {
           </tr>
         </thead>
         <tbody>
-          {borrows.map((item, i) => {
+          {borrows?.map((item, i) => {
             <tr keys={item._id}>
               <td>{i + 1}</td>
               <td>
