@@ -41,7 +41,7 @@ export const fetchSingleBook = async (_id) => {};
 export const updateABook = async ({ _id, ...bookObject }) => {
   const apiObj = {
     method: "put",
-    url: bookEP,
+    url: bookEP + "/" + _id,
     isPrivate: true,
     isRefreshToken: false,
     data: bookObject,

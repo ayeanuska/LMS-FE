@@ -95,7 +95,7 @@ const HomePage = () => {
       <Container>
         <Row>
           <Col className="d-flex justify-content-between mt-5">
-            <label htmlFor="">{searchedBooks.length || 0} books found!</label>
+            <label htmlFor="">{searchedBooks?.length || 0} books found!</label>
             <div>
               <Form.Control
                 onChange={handleOnSearch}
@@ -107,7 +107,7 @@ const HomePage = () => {
         <hr />
         <Row className="mb-4">
           <Col className="d-flex gap-4 flex-wrap">
-            {searchedBooks.map(
+            {searchedBooks?.map(
               (book) =>
                 book.status === "active" && (
                   <Link key={book._id} to={"/book/" + book._id}>

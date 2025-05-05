@@ -10,7 +10,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import Dashboard from "./Pages/dashboard/Dashboard";
 
-
 import BookLandingPage from "./Pages/book/BookLandingPage.jsx";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -30,15 +29,16 @@ import StudentList from "./Pages/students/StudentList.jsx";
 import Review from "./Pages/reviews/Review.jsx";
 import { getReviews } from "./features/reviews/reviewAction.js";
 function App() {
-
+  const { books } = useSelector((state) => state.bookInfo);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllBookAction());
+
     dispatch(getReviews(false));
     //done : autologin dispatch when refreshing page.
     dispatch(autologin());
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
@@ -54,7 +54,7 @@ function App() {
           <Route path="/book/:_id" element={<BookLandingPage />} />
         </Route>
         {/*  only admin pages */}
-        <Route path="/admin/books" element={<BookList />} />
+        <Route path="/admin/books" element={<BookList books={books} />} />
         <Route path="admin/books/new" element={<AddNewBook />} />
         <Route path="/admin/book/edit/:_id" element={<EditBook />} />
 

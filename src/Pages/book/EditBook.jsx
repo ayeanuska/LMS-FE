@@ -22,16 +22,18 @@ const EditBook = () => {
   useEffect(() => {
     dispatch(setSelectedBook(books.find((item) => item._id == _id)));
   }, []);
+
   useEffect(() => {
-    setForm(selectedBook);
+    if (selectedBook) setForm(selectedBook);
   }, [selectedBook]);
 
   const handleOnSubmit = async (e) => {
-    e.prevetDefault();
+    e.preventDefault();
     const { __v, createdAt, isbn, updatedAt, ...rest } = form;
 
     if (window.confirm("Are you sure you want to make this changes?")) {
-      const data = await dispatch(updateSingleBookAction(rest));
+      const upadatedBookData = { ...rest, _id };
+      const data = await dispatch(updateSingleBookAction(upadatedBookData));
       if (data.status == "success") {
         navigate("/admin/books");
       }

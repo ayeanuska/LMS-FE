@@ -12,7 +12,7 @@ const BookLandingPage = () => {
   const { books } = useSelector((state) => state.bookInfo);
   const { user } = useSelector((state) => state.userInfo);
 
-  const book = books.find((item) => item._id === _id);
+  const book = books?.find((item) => item._id === _id);
 
   if (!book?._id) {
     return <Spinner animation="border" variant="primary" />;

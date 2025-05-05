@@ -9,6 +9,7 @@ import {
 } from "./bookAxios";
 import { setBooks, setPubBooks, setSelectedBook } from "./bookSlice";
 import { CgLayoutGrid } from "react-icons/cg";
+import e from "cors";
 
 export const getAllBookAction = () => async (dispatch) => {
   //  1. fetch data
@@ -51,23 +52,32 @@ export const postNewBookAction = (obj) => async (dispatch) => {
 };
 
 export const getSingleBookAction = (_id) => async (dispatch) => {
-  const { status, books } = await fetchSingleBook(_id);
+  const { status, book } = await fetchSingleBook(_id);
   if (status) {
-    dispatch(setSelectedBook(books));
+    dispatch(setSelectedBook(book));
   }
 };
 
 export const updateSingleBookAction = (obj) => async (dispatch) => {
-  const pending = updateABook(obj);
-  toast.promise(pending, {
-    pending: "PLEASE WAIT...",
-  });
+  try {
+    delete obj.expectedAvailable;
+    delete obj.isAvailable;
+    delete obj.averageRating;
 
-  const { status, message } = await pending;
-  toast[status](message);
+    const pending = updateABook(obj);
+    toast.promise(pending, {
+      pending: "PLEASE WAIT...",
+    });
 
-  status === "success" && dispatch(getSingleBookAction(obj._id));
-  return { status, message };
+    const { status, message } = await pending;
+    toast[status](message);
+
+    status === "success" && dispatch(getSingleBookAction(obj._id));
+    return { status, message };
+  } catch (error) {
+    toast.error("An erorr occured while updating book");
+    return { status: "error", message: error.message };
+  }
 };
 
 export const deleteSingleBookAction = (id) => async (dispatch) => {
