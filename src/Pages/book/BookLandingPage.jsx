@@ -11,13 +11,17 @@ const BookLandingPage = () => {
   const { _id } = useParams();
 
   const { books } = useSelector((state) => state.bookInfo);
-  console.log(books);
 
   const { user } = useSelector((state) => state.userInfo);
-  console.log(user);
+
+  useEffect(() => {
+    if (!books || books.length === 0) {
+      dispatch(getSingleBookAction(_id));
+    }
+  }, [dispatch, books]);
 
   const book = books?.find((item) => item._id === _id);
-  console.log(book);
+  // console.log("book", book);
 
   if (!book) {
     return <Spinner animation="border" variant="primary" />;
@@ -34,28 +38,21 @@ const BookLandingPage = () => {
   } = book;
 
   const handleOnBookBurrow = () => {
-    // if (window.confirm("Are you sure, you want to burrow this book?")) {
-    // dispatch(
-    //   addNewBurrowAction({
-    //     _id,
-    //     bookTitle: title,
-    //     thumbnail,
-    //   })
-    // );
-
-    console.log("burrowing");
-    dispatch(
-      borrowBookAction({
-        _id,
-        bookTitle: title,
-        thumbnail,
-      })
-    );
-    // }
+    try {
+      if (window.confirm("Are you sure, you want to burrow this book?")) {
+        dispatch(
+          borrowBookAction({
+            title,
+            thumbnail,
+            bookId: _id,
+          })
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
-  useEffect(() => {
-    dispatch(getSingleBookAction(_id));
-  }, [book]);
+
   return (
     <>
       <Row className="g-2">
@@ -77,7 +74,7 @@ const BookLandingPage = () => {
                 {availabiliy
                   ? "Burrow This Book"
                   : "Expected available date: " +
-                    expectedAvailable?.slice(0, 10)}
+                    expectedAvailable.slice(0, 10)}
               </Button>
             ) : (
               <Link
