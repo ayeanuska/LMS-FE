@@ -1,25 +1,46 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CustomInput from "../../components/custom-input/CustomInput";
-import { Alert, Button, Card, Form } from "react-bootstrap";
+import { Alert, Button, Card, Form, Spinner } from "react-bootstrap";
 import useForm from "../../hooks/useForm";
 import { reqPassResetApi } from "../../features/users/userAxios";
 
 const initialState = {};
+const timeToReqOtpAgain = 20; //60s
 const ForgetPasswordPage = () => {
   const emailRef = useRef(" ");
   const [showPassResetForm, setShowPassResetForm] = useState(false);
+  const [isOtpPending, setIsOtpPending] = useState(false);
+  const [isOtpBtnDisabled, setIsOtpBtnDisabled] = useState(false);
 
-  const { form, passwordErrors, handleOnChange } = useForm();
+  const [counter, setCounter] = useState(0);
+  const { form, passwordErrors, handleOnChange } = useForm(initialState);
+
+  useEffect(() => {
+    if (counter > 0) {
+      const timer = setInterval(() => {
+        setCounter(counter - 1);
+      }, 1000);
+      return () => clearInterval(timer);
+    } else {
+      setIsOtpBtnDisabled(false);
+    }
+  }, [counter]);
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
     const email = emailRef.current.value;
     // call api to reset password
+    setIsOtpPending(true);
+    setIsOtpBtnDisabled(true);
 
     const response = await reqPassResetApi({ email });
     console.log(response);
-    if (response?.status === "success") setShowPassResetForm(true);
+    if (response?.status === "success") {
+      setShowPassResetForm(true);
+    }
+    setIsOtpPending(false);
+    setCounter(timeToReqOtpAgain);
   };
 
   const handleOnPasswordResetSubmit = () => {
@@ -52,8 +73,15 @@ const ForgetPasswordPage = () => {
                 size="sm"
                 variant="primary"
                 className="px-4"
+                disabled={isOtpBtnDisabled}
               >
-                Request OTP
+                {isOtpPending ? (
+                  <Spinner variant="border" />
+                ) : counter > 0 ? (
+                  `Request OTP in ${counter}`
+                ) : (
+                  "Request OTP"
+                )}
               </Button>
             </div>
           </Form>
