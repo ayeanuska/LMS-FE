@@ -39,3 +39,13 @@ export const fetchUserDetailApi = () => {
 
   return apiProcessor(apiObj);
 };
+
+//request to send OTP
+export const reqPassResetApi = (payload) => {
+  const apiObj = {
+    method: "post",
+    url: authEP + "/otp",
+    data: payload,
+  };
+  return apiProcessor(apiObj);
+};

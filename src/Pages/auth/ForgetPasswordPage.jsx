@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import CustomInput from "../../components/custom-input/CustomInput";
 import { Alert, Button, Card, Form } from "react-bootstrap";
 import useForm from "../../hooks/useForm";
+import { reqPassResetApi } from "../../features/users/userAxios";
 
 const initialState = {};
 const ForgetPasswordPage = () => {
@@ -10,17 +11,19 @@ const ForgetPasswordPage = () => {
 
   const { form, passwordErrors, handleOnChange } = useForm();
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
 
     const email = emailRef.current.value;
-    console.log(email);
+    // call api to reset password
+
+    const response = await reqPassResetApi({ email });
+    console.log(response);
+    if (response?.status === "success") setShowPassResetForm(true);
   };
 
   const handleOnPasswordResetSubmit = () => {
     e.preventDefault();
-
-    console.log(form);
   };
   return (
     <div className="min-vh-100 d-flex justify-content-center align-items-center bg-light px-2">
