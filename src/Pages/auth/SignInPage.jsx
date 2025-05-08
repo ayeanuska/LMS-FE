@@ -14,7 +14,7 @@ const SignInPage = () => {
             <Card.Title className="mb-3">Log in</Card.Title>
             <UserSignInForm />
 
-            <div className="text-end my-3">
+            <div className="text-center my-3">
               Forget Password? <Link to="/forgetPassword">Reset Now</Link>
             </div>
           </Card>

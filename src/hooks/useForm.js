@@ -30,7 +30,7 @@ const useForm = () => {
       const errorArg = validator(form.password, form.confirmPassword);
       setPassswordErrors(errorArg);
     }
-  }, [form?.password, form?.confirmPassword]);
+  }, [form.password, form.confirmPassword]);
 
   return {
     form,
