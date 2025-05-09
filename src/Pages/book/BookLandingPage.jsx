@@ -11,20 +11,24 @@ const BookLandingPage = () => {
   const { _id } = useParams();
 
   const { books } = useSelector((state) => state.bookInfo);
-
   const { user } = useSelector((state) => state.userInfo);
 
   useEffect(() => {
     if (!books || books.length === 0) {
       dispatch(getSingleBookAction(_id));
     }
-  }, [dispatch, books]);
+  }, [dispatch, _id, books]);
 
   const book = books?.find((item) => item._id === _id);
-  // console.log("book", book);
 
   if (!book) {
-    return <Spinner animation="border" variant="primary" />;
+    return (
+      <Spinner
+        animation="border"
+        variant="primary"
+        className="d-block mx-auto my-5"
+      />
+    );
   }
 
   const {
@@ -39,7 +43,7 @@ const BookLandingPage = () => {
 
   const handleOnBookBurrow = () => {
     try {
-      if (window.confirm("Are you sure, you want to burrow this book?")) {
+      if (window.confirm("Are you sure you want to borrow this book?")) {
         dispatch(
           borrowBookAction({
             title,
@@ -55,60 +59,64 @@ const BookLandingPage = () => {
 
   return (
     <>
-      <Row className="g-2">
-        <Col md={6}>
-          <div className="m-auto" style={{ maxWidth: "450px" }}>
-            <img src={thumbnail} alt="" width={"100%"} />
-          </div>
+      <Row className="g-4 py-4">
+        <Col
+          md={6}
+          className="d-flex justify-content-center align-items-center"
+        >
+          <img
+            src={thumbnail}
+            alt={title}
+            className="img-fluid"
+            style={{
+              maxWidth: "300px",
+              height: "auto",
+              objectFit: "contain",
+            }}
+          />
         </Col>
         <Col md={6}>
-          <h1>{title}</h1>
-          <p>
-            {author} - {publishedYear}
+          <h1 className="mb-3">{title}</h1>
+          <p className="text-muted mb-4">
+            {author} - <span className="text-primary">{publishedYear}</span>
           </p>
-          {/* <Stars stars={avgRatings} totalReviews={bookReviews.length} /> */}
-          <p className="mt-5">{description.slice(0, 130)}...</p>
-          <div className="">
+          <p className="mt-5 text-muted">{description.slice(0, 130)}...</p>
+          <div className="mt-3">
             {user?._id ? (
-              <Button disabled={!availabiliy} onClick={handleOnBookBurrow}>
+              <Button
+                variant="primary"
+                disabled={!availabiliy}
+                onClick={handleOnBookBurrow}
+              >
                 {availabiliy
-                  ? "Burrow This Book"
+                  ? "Borrow This Book"
                   : "Expected available date: " +
                     expectedAvailable.slice(0, 10)}
               </Button>
             ) : (
-              <Link
-                to="/signin"
-                className=""
-                state={{
-                  from: { location },
-                }}
-              >
-                <Button>Login to burrow</Button>
+              <Link to="/signin" state={{ from: { location } }}>
+                <Button variant="outline-primary" className="mt-3">
+                  Login to borrow
+                </Button>
               </Link>
             )}
           </div>
         </Col>
       </Row>
-      <Row className="py-5 ">
+      <Row className="py-5">
         <Col>
-          {/* tab bar */}
-
           <Tabs
             defaultActiveKey="description"
-            id="uncontrolled-tab-example"
-            className="mb-3"
+            id="book-tabs"
+            className="mb-3 border-top border-2 pt-3"
           >
             <Tab eventKey="description" title="Description">
-              {description}
+              <p>{description}</p>
             </Tab>
-
             <Tab eventKey="reviews" title="Reviews">
-              {/* <ReviewBlock pubReviews={pubReviews} /> */}
+              {/* Reviews Section */}
             </Tab>
           </Tabs>
-
-          {/* content area  */}
         </Col>
       </Row>
     </>
