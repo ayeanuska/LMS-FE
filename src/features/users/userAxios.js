@@ -49,3 +49,13 @@ export const reqPassResetApi = (payload) => {
   };
   return apiProcessor(apiObj);
 };
+//reset password
+export const resetPasswordApi = (payload) => {
+  const apiObj = {
+    method: "post",
+    url: authEP + "/reset-password",
+    data: payload,
+    showToast: true,
+  };
+  return apiProcessor(apiObj);
+};

@@ -1,5 +1,6 @@
 import axios from "axios";
-import { CgLayoutGrid } from "react-icons/cg";
+
+import { toast } from "react-toastify";
 const authEP = import.meta.env.VITE_APP_ROOT_URL + "/auth"; // change to enc variable
 // const authEP = "http://localhost:9002/api/v1/auth";
 
@@ -18,6 +19,7 @@ export const apiProcessor = async ({
   data,
   isPrivate,
   isRefreshToken,
+  showToast,
 }) => {
   const headers = {
     Authorization: isPrivate
@@ -28,6 +30,7 @@ export const apiProcessor = async ({
   };
 
   headers.Authorization = "Bearer " + headers.Authorization;
+
   try {
     const response = await axios({
       method,
@@ -36,11 +39,23 @@ export const apiProcessor = async ({
       headers,
     });
 
+    //show toast on sucess if enabled
+    if (showToast && response.data?.message) {
+      toast.success(response.data.message);
+    }
     return response.data;
   } catch (error) {
     console.log(error);
+
+    const message = error?.response?.data?.message ?? error.message;
+    //show toast on error if enabled
+    if (showToast) {
+      toast.error(message);
+    }
+
+    //handle expired tokn
     // 1. check error messge for "jwt expired"
-    if (error?.response?.data?.message == "jwt expired") {
+    if (message === "jwt expired") {
       //   // call renew jwt token
       //   //get access token and store it in seession storage
       const refreshData = await apiProcessor({
@@ -70,7 +85,6 @@ export const apiProcessor = async ({
       }
     }
 
-    const message = error?.response?.data?.message ?? error.message;
     return {
       status: "error",
       message,

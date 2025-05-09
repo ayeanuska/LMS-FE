@@ -2,11 +2,17 @@ import React, { useEffect, useRef, useState } from "react";
 import CustomInput from "../../components/custom-input/CustomInput";
 import { Alert, Button, Card, Form, Spinner } from "react-bootstrap";
 import useForm from "../../hooks/useForm";
-import { reqPassResetApi } from "../../features/users/userAxios";
+import {
+  reqPassResetApi,
+  resetPasswordApi,
+} from "../../features/users/userAxios";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const initialState = {};
 const timeToReqOtpAgain = 20; //60s
 const ForgetPasswordPage = () => {
+  const navigate = useNavigate();
   const emailRef = useRef(" ");
   const [showPassResetForm, setShowPassResetForm] = useState(false);
   const [isOtpPending, setIsOtpPending] = useState(false);
@@ -43,8 +49,19 @@ const ForgetPasswordPage = () => {
     setCounter(timeToReqOtpAgain);
   };
 
-  const handleOnPasswordResetSubmit = () => {
+  const handleOnPasswordResetSubmit = async (e) => {
     e.preventDefault();
+
+    const email = emailRef.current.value;
+    // console.log(email, form);
+
+    const payload = { email, otp: form.otp, password: form.password };
+    const response = await resetPasswordApi(payload);
+    if (response?.status === "success") {
+      //redirect user to login page
+      toast.success("Password reset successful. Redirecting to loginPage");
+      setTimeout(() => navigate("/signin"), 3000); // navigate in 3s
+    }
   };
   return (
     <div className="min-vh-100 d-flex justify-content-center align-items-center bg-light px-2">
@@ -108,20 +125,22 @@ const ForgetPasswordPage = () => {
                   onChange={handleOnChange}
                 />
                 <CustomInput
-                  label="Password"
+                  label="New Password"
                   name="password"
                   type="password"
                   required
                   placeholder="******"
                   onChange={handleOnChange}
+                  autoComplete="new-password"
                 />
                 <CustomInput
                   label="Confirm Password"
                   name="confirmPassword"
-                  type="Password"
+                  type="password"
                   required
                   placeholder="******"
                   onChange={handleOnChange}
+                  autoComplete="new-password"
                 />
 
                 <div className="py-3">

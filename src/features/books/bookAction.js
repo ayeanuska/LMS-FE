@@ -64,13 +64,16 @@ export const postNewBookAction = (obj) => async (dispatch) => {
 
 export const getSingleBookAction = (_id) => async (dispatch) => {
   try {
-    const { response } = await fetchSingleBook(_id);
-  } catch (error) {}
+    const response = await fetchSingleBook(_id);
+    const { book, status } = response;
 
-  if (status) {
-    dispatch(setSelectedBook(book));
-  } else {
-    console.error("Failed to fetch single book");
+    if (status === "active") {
+      dispatch(setSelectedBook(book));
+    } else {
+      console.error("Failed to fetch single book");
+    }
+  } catch (error) {
+    console.error("Error fetching book", error.message);
   }
 };
 
