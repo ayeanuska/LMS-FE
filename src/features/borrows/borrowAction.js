@@ -22,12 +22,21 @@ export const borrowBookAction = (obj) => async (dispatch) => {
 };
 
 export const getBorrowListAction = () => async (dispatch) => {
-  //fetch borrow list
+  try {
+    //fetch borrow list
+    const pending = fetchBorrow();
 
-  const pending = fetchBorrow();
+    const { status, message, borrows } = await pending;
+    console.log("FETCHED BORROWS FROM BACKEND:", borrows);
 
-  const { status, message, borrows } = await pending;
-  dispatch(setBorrows(borrows));
+    if (status === "success") {
+      dispatch(setBorrows(borrows));
+    } else {
+      console.log("Failed to fetch borrows:", message);
+    }
+  } catch (error) {
+    console.error("Error catching borrows:", error.message);
+  }
 };
 
 //action to return book

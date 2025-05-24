@@ -4,8 +4,6 @@ import { validator } from "../utils/validatePassword";
 const handleOnChange = ({ e, form, setForm }) => {
   const { name, value } = e.target;
 
-  console.log(name, value, e.target.checked, 20000);
-
   if (name === "status") {
     setForm({
       ...form,
