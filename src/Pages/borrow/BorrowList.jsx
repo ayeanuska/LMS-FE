@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getBorrowListAction,
-  returnBookAction,
-} from "../../features/borrows/borrowAction";
+import { returnBookAction } from "../../features/borrows/borrowAction";
 import CustomModal from "../../components/customModal/CustomModal";
 
 const BorrowList = ({ borrows }) => {
@@ -49,10 +46,10 @@ const BorrowList = ({ borrows }) => {
             <tr key={item._id}>
               <td>{i + 1}</td>
               <td>
-                <img src={item?.thumbnail} alt="" width={"70px"}></img>
+                <img src={item.bookId?.thumbnail} alt="" width={"70px"}></img>
               </td>
               <td>
-                <h2>{item?.title?.slice(0, 20) || "Untitled Book"}</h2>
+                <h2>{item.bookId?.title?.slice(0, 20) || "Untitled Book"}</h2>
               </td>
               <td>{item?.dueDate?.slice(0, 10)}</td>
               <td>{item?.returnDate?.slice(0, 10) || "-"}</td>
