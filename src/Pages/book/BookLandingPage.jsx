@@ -37,8 +37,8 @@ const BookLandingPage = () => {
     author,
     publishedYear,
     description,
-    availabiliy,
-    expectedAvailable,
+    isAvailable,
+    expectedAvailability,
   } = book;
 
   const handleOnBookBurrow = () => {
@@ -85,13 +85,15 @@ const BookLandingPage = () => {
             {user?._id ? (
               <Button
                 variant="primary"
-                disabled={!availabiliy}
+                disabled={!isAvailable}
                 onClick={handleOnBookBurrow}
               >
-                {availabiliy
+                {isAvailable
                   ? "Borrow This Book"
-                  : "Expected available date: " +
-                    expectedAvailable.slice(0, 10)}
+                  : expectedAvailability
+                  ? "Expected available date: " +
+                    expectedAvailability.slice(0, 10)
+                  : "Currently unavailable"}
               </Button>
             ) : (
               <Link to="/signin" state={{ from: { location } }}>

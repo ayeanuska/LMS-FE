@@ -34,14 +34,11 @@ export const postNewBookApi = (newBookObj) => {
   };
   return apiProcessor(apiObj);
 };
-
-//axios call for endpoint
-export const fetchSingleBook = async (_id, bookObject) => {
+export const fetchSingleBook = async (_id) => {
   const apiObj = {
     method: "get",
-    url: bookEP + "/" + _id,
+    url: `${bookEP}/${_id}`,
     isPrivate: true,
-    data: bookObject,
   };
   return apiProcessor(apiObj);
 };
