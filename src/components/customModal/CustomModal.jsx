@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { Modal } from "react-bootstrap";
 
 const CustomModal = ({ title, children, closeFunction }) => {
   const [show, setShow] = useState(true);
