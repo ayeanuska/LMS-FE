@@ -22,7 +22,7 @@ export const updateReviewAction = (obj) => async (dispatch) => {
   const pending = updateReview(obj);
 
   toast.promise(pending, {
-    pending: "Please wait..", 
+    pending: "Please wait..",
   });
 
   const [status, message] = await pending;
