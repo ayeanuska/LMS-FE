@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   pubReviews: [],
-  alllReviews: [],
+  allReviews: [],
 };
 
 const reviewSlice = createSlice({
@@ -14,7 +14,7 @@ const reviewSlice = createSlice({
     },
 
     setAllReview: (state, { payload }) => {
-      state.alllReviews = payload;
+      state.allReviews = payload;
     },
     updateReviewStatus: (state, { payload }) => {
       const { _id, status } = payload;

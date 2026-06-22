@@ -1,27 +1,52 @@
-import react from "react";
+import React, { useEffect } from "react";
+import { UserLayout } from "../../components/layouts/UserLayout";
+import { Table } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { getReviews } from "../../features/reviews/reviewAction";
 
 const Review = () => {
+  const { allReviews } = useSelector((state) => state.reviewInfo);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getReviews(true));
+  }, [dispatch]);
   return (
-    <UserLayout pageTItle="All reviews list">
+    <UserLayout pageTitle="All reviews list">
       <div>
-        <div className='"d-flex justify-content-between m-4'></div>\
-        <div>30 Reviews foundd!!</div>
+        <div className="d-flex justify-content-between m-4"></div>
+        <div>{allReviews?.length || 0} Reviews found</div>
       </div>
       <hr />
-      <Table stiped bordered hover>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th># </th>
+            <th>Thumbnail</th>
+            <th>Student Name</th>
+            <th>Reviews</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
         <tbody>
-          <thead>
-            <tr>
-              <th># </th>
-              <th>thumbnail</th>
-              <th>Student Name</th>
-              <th>Reviews</th>
-              <th>Delete</th>
+          {allReviews?.map((item, i) => (
+            <tr key={item._id}>
+              <td>{i + 1}</td>
+              <td>
+                <img src={item.bookId?.thumbnail} alt="" width="70px" />
+              </td>
+              <td>
+                <h2> {item.bookId?.title?.slice(0, 20) || "Untitled Book"}</h2>
+              </td>
+              <td>
+                <h2>{item.review || "No review found for this book yet. "}</h2>
+              </td>
+              <td>
+                <button>Delete </button>
+              </td>
             </tr>
-          </thead>
+          ))}
         </tbody>
-
-        {}
       </Table>
     </UserLayout>
   );

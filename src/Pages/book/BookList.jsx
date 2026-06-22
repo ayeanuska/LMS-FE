@@ -11,19 +11,6 @@ import { getAllBookAction } from "../../features/books/bookAction";
 const BookList = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userInfo);
-  // const [book, setBooks] = useState([]);
-
-  // const { books } = useSelector((state) => state.bookInfo);
-
-  // useEffect(() => {
-  //   dispatch(setMenu("Books"));
-  //   //fetch all books for admin
-  //   if (book.length === 0) {
-  //     dispatch(getAllBookAction());
-  //     setBooks(books);
-  //     console.log("fetched");
-  //   }
-  // }, [dispatch, book]);
   const [displayBooks, setDisplayBook] = useState([]);
   const { books } = useSelector((state) => state.bookInfo);
   useEffect(() => {
