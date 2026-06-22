@@ -28,8 +28,9 @@ export const ReviewForm = ({ borrow, setBurrow }) => {
 
     if (window.confirm("Are you sure , you want to leave this review?")) {
       const action = await dispatch(addNewReviewAction(obj));
-      action && setBurrow({});
-      alert("Review added successfully");
+      if (action) {
+        setBurrow({});
+      }
     }
   };
 

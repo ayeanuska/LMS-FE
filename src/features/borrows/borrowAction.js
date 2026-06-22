@@ -49,7 +49,7 @@ export const returnBookAction = (id) => async (dispatch) => {
   toast.promise(pending, { pending: "please wait.." });
 
   const { status, message } = await pending;
-  toast[status], message;
+  toast[status](message);
 
   if (status == "success") {
     dispatch(getBorrowListAction());

@@ -2,8 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Row, Spinner, Tab, Tabs } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { borrowBookAction } from "../../features/borrows/borrowAction";
+import {
+  borrowBookAction,
+  getBorrowListAction,
+} from "../../features/borrows/borrowAction";
 import { getSingleBookAction } from "../../features/books/bookAction";
+import { ReviewForm } from "../../components/forms/ReviewForm";
+import CustomModal from "../../components/customModal/CustomModal";
 
 const BookLandingPage = () => {
   const location = useLocation();
@@ -12,10 +17,18 @@ const BookLandingPage = () => {
 
   const { books } = useSelector((state) => state.bookInfo);
   const { user } = useSelector((state) => state.userInfo);
+  const { borrows } = useSelector((state) => state.borrowInfo);
+  const { pubReviews } = useSelector((state) => state.reviewInfo);
 
+  const [borrow, setBorrow] = useState({});
   useEffect(() => {
     if (!books || books.length === 0) {
       dispatch(getSingleBookAction(_id));
+    }
+
+    // fetch borrow list if user is loged in
+    if (user?._id) {
+      dispatch(getBorrowListAction());
     }
   }, [dispatch, _id, books]);
 
@@ -41,6 +54,11 @@ const BookLandingPage = () => {
     expectedAvailability,
   } = book;
 
+  // check if user has returened the book or not
+  const elligibleBorrow = borrows?.find(
+    (item) => item.bookId?._id === _id && item.status === "returned"
+  );
+
   const handleOnBookBurrow = () => {
     try {
       if (window.confirm("Are you sure you want to borrow this book?")) {
@@ -57,8 +75,24 @@ const BookLandingPage = () => {
     }
   };
 
+  // filter reviews for this book only
+  const bookReviews = pubReviews?.filter((item) => item.bookId === _id);
+
+  const handleOnReview = () => {
+    setBorrow({
+      ...elligibleBorrow,
+      userName: user.fName,
+    });
+  };
+
   return (
     <>
+      {borrow?._id && (
+        <CustomModal title="Leave a review" closeFunction={setBorrow}>
+          <ReviewForm borrow={borrow} setBorrow={setBorrow} />
+        </CustomModal>
+      )}
+
       <Row className="g-4 py-4">
         <Col
           md={6}
@@ -117,6 +151,28 @@ const BookLandingPage = () => {
             </Tab>
             <Tab eventKey="reviews" title="Reviews">
               {/* Reviews Section */}
+              <div className="mb-4">
+                {/* Show review form only when user is eligible to review */
+                /* condition for user that havent logged in  */}
+                {!user?._id && (
+                  <p>
+                    <Link to="/signin"> Login</Link>
+                  </p>
+                )}
+                {/* condition for user that have logged in but not eligible to review  */}
+                {user?._id && !elligibleBorrow && (
+                  <p>
+                    You need to borrow and return this book before leaving a
+                    review.
+                  </p>
+                )}
+                {/* condition for user that have logged in and eligible to review  */}
+                {user?._id && elligibleBorrow && (
+                  <Button varient="outline-primary" onClick={handleOnReview}>
+                    Leave a Review
+                  </Button>
+                )}
+              </div>
             </Tab>
           </Tabs>
         </Col>
