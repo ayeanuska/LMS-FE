@@ -25,7 +25,7 @@ export const updateReviewAction = (obj) => async (dispatch) => {
     pending: "Please wait..",
   });
 
-  const [status, message] = await pending;
+  const { status, message } = await pending;
 
   toast[status](message);
 
@@ -39,7 +39,7 @@ export const updateReviewAction = (obj) => async (dispatch) => {
 export const getReviews = (isPrivate) => async (dispatch) => {
   const { status, reviews } = await fetchReviews(isPrivate);
 
-  if (status) {
+  if (status === "success") {
     isPrivate
       ? dispatch(setAllReview(reviews))
       : dispatch(setPubReviews(reviews));
