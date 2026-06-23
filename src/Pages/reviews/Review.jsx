@@ -33,12 +33,13 @@ const Review = () => {
             <tr key={item._id}>
               <td>{i + 1}</td>
               <td>
-                <img src={item.bookId?.thumbnail} alt="" width="70px" />
+                <img src={item.thumbnail} alt="" width="70px" />
               </td>
               <td>
-                <h2> {item.bookId?.title?.slice(0, 20) || "Untitled Book"}</h2>
+                <h2>{item.userName} </h2>
               </td>
               <td>
+                <h2>{item.title?.slice(0, 20) || "Unititled book"}</h2>
                 <h2>{item.review || "No review found for this book yet. "}</h2>
               </td>
               <td>
