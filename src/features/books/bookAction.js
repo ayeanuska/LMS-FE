@@ -8,8 +8,6 @@ import {
   updateABook,
 } from "./bookAxios";
 import { setBooks, setPubBooks, setSelectedBook } from "./bookSlice";
-import { CgLayoutGrid } from "react-icons/cg";
-import e from "cors";
 
 export const getAllBookAction =
   (isPrivate = false) =>

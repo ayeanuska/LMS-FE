@@ -28,6 +28,7 @@ import HomePage from "./Pages/home/Homepage.jsx";
 import StudentList from "./Pages/students/StudentList.jsx";
 import Review from "./Pages/reviews/Review.jsx";
 import { getReviews } from "./features/reviews/reviewAction.js";
+import ProfilePage from "./Pages/profile/ProfilePage.jsx";
 function App() {
   const { books } = useSelector((state) => state.bookInfo);
 
@@ -67,6 +68,7 @@ function App() {
         {/* private routes */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/my-books" element={<MyBorrow />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
       <ToastContainer />
     </>

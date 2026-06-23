@@ -9,10 +9,9 @@ export const fetchUserApi = async () => {
   const obj = {
     url: userEP + "/profile",
     method: "get",
-    payload,
     showToast: false,
     isPrivate: true,
   };
-  const result = await apiProcessor(obj);
-  console.log(result);
+
+  return await apiProcessor(obj);
 };
