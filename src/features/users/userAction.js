@@ -21,7 +21,11 @@ export const loginAction = (form, navigate) => async (dispatch) => {
     //updating the local storage for refresh
     localStorage.setItem("refreshJWT", data.refreshToken);
 
-    navigate("/dashboard");
+    if (data?.user.role === "admin") {
+      navigate("/admin/books");
+    } else {
+      navigate("/dashboard");
+    }
   }
 };
 
