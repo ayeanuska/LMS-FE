@@ -1,6 +1,6 @@
 import { renewAccessJWT } from "../../helpers/axiosHelpers";
 import { createNewUserApi, fetchUserDetailApi, loginApi } from "./userAxios";
-import { setUser } from "./userSlice";
+import { setUser, setLoading } from "./userSlice";
 
 export const registerUserAction = (payload) => async (dispatch) => {
   const res = await createNewUserApi(payload);
@@ -44,7 +44,8 @@ export const autologin = () => async (dispatch) => {
 
   // access when jwt exists
   if (accessJWT) {
-    dispatch(getUserObj());
+    await dispatch(getUserObj());
+    dispatch(setLoading(false));
     return;
   }
 
@@ -52,6 +53,7 @@ export const autologin = () => async (dispatch) => {
 
   if (refreshJWT) {
     const token = await renewAccessJWT();
-    token && dispatch(getUserObj());
+    token && (await dispatch(getUserObj()));
   }
+  dispatch(setLoading(false));
 };

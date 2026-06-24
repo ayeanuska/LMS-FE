@@ -17,11 +17,11 @@ const ProfilePage = () => {
   return (
     <UserLayout pageTitle="Profile Page">
       <h2>
-        {user.fName} {user.lName}
+        {user?.fName} {user?.lName}
       </h2>
-      <p> Email: {user.email}</p>
-      <p>Phone number: {user.phone} </p>
-      <p>Role: {user.role}</p>
+      <p> Email: {user?.email}</p>
+      <p>Phone number: {user?.phone} </p>
+      <p>Role: {user?.role}</p>
     </UserLayout>
   );
 };
